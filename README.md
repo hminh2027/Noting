@@ -19,6 +19,7 @@ Noting is a lightweight note-taking web app inspired by Notion and built with Ja
   - Clone notes (from other users)
   - Comment on note
   - Mark as favorite note
+  - Real-time noting
 - User management:
   - Manage user account
   - Create group and manage member
