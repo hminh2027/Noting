@@ -8,10 +8,9 @@ const DefaultLayout = ({ children }) => {
       <Sidebar />
       <div className="flex flex-col flex-1">
         <Header />
-        <div>{children}</div>
+        <div className="flex flex-col flex-1">{children}</div>
       </div>
     </div>
   );
 };
-
 export default DefaultLayout;
