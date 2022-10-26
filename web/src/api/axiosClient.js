@@ -1,5 +1,4 @@
 import axios from "axios";
-import queryString from "query-string";
 import { parse, stringify } from "qs";
 // Set up default config for http requests here
 

@@ -1,24 +1,17 @@
 import React, { useEffect } from "react";
 import productApi from "../src/api/apis/productApi";
 
+import dynamic from "next/dynamic";
 const Test = () => {
-  useEffect(() => {
-    const fetchProductList = async () => {
-      try {
-        const params = {
-          _page: 1,
-          _limit: 10,
-        };
-        const response = await productApi.getAll(params);
-        console.log(response);
-      } catch (e) {
-        console.log({ e });
-      }
-    };
-    fetchProductList();
-  }, []);
-
-  return <div>Test</div>;
+  //Remember to import the dynamic from Nextjs
+  const NoteEditor = dynamic(() => import("../src/components/Editor"), {
+    ssr: false,
+  });
+  return (
+    <div>
+      <NoteEditor />
+    </div>
+  );
 };
 
 export default Test;

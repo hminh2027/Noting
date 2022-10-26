@@ -1,10 +1,12 @@
 import React from "react";
-import dynamic from "next/dynamic";
 import NoteSidebar from "../organism/NoteSidebar";
-const NoteEditor = dynamic(() => import("../../Editor"), {
-  ssr: false,
-});
-const NoteTaking = () => {
+import dynamic from "next/dynamic";
+
+const Main = () => {
+  const NoteEditor = dynamic(() => import("../../Editor"), {
+    ssr: false,
+  });
+
   const temp = [
     {
       title: "Hello",
@@ -42,13 +44,11 @@ const NoteTaking = () => {
     },
   ];
   return (
-    <div className="flex flex-1">
-      <NoteSidebar data={temp} className="min-w-[150px] min-h-full" />
-      <div className="flex-1">
-        <NoteEditor />
-      </div>
+    <div className="flex ">
+      <NoteSidebar data={temp} className="min-w-[150px] min-h-full flex-1" />
+      <div className="flex-1">{NoteEditor && <NoteEditor />}</div>
     </div>
   );
 };
 
-export default NoteTaking;
+export default Main;
