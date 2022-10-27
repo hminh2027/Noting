@@ -26,9 +26,9 @@ const NoteEditor = () => {
   };
   return (
     <div>
-      <Button className="btn" onClick={onSave}>
+      {/* <Button className="btn" onClick={onSave}>
         Save
-      </Button>
+      </Button> */}
       {/* docs: https://editorjs.io/configuration */}
       <EditorJs
         data={data}
