@@ -1,8 +1,8 @@
 import EditorJs from "@natterstefan/react-editor-js";
-import { data } from "./data";
+// import { data } from "./data";
 import { EditorTools } from "./EditorTools";
 import { Button } from "@chakra-ui/react";
-const NoteEditor = () => {
+const NoteEditor = ({ data }) => {
   const editor = null;
 
   const onReady = () => {
