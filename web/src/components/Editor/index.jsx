@@ -1,8 +1,8 @@
 import EditorJs from "@natterstefan/react-editor-js";
-import { data } from "./data";
+// import { data } from "./data";
 import { EditorTools } from "./EditorTools";
 import { Button } from "@chakra-ui/react";
-const NoteEditor = () => {
+const NoteEditor = ({ data }) => {
   const editor = null;
 
   const onReady = () => {
@@ -26,9 +26,9 @@ const NoteEditor = () => {
   };
   return (
     <div>
-      <Button className="btn" onClick={onSave}>
+      {/* <Button className="btn" onClick={onSave}>
         Save
-      </Button>
+      </Button> */}
       {/* docs: https://editorjs.io/configuration */}
       <EditorJs
         data={data}
