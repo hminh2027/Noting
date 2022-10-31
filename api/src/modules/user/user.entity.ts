@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Note } from './../note/entities/note.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { PasswordTransformer } from './password.transformer';
 
 @Entity({
@@ -28,6 +29,10 @@ export class User {
     const { password, ...self } = this;
     return self;
   }
+
+  /* 1-N */
+  @OneToMany(() => Note, (note) => note.user, { cascade: true })
+  notes: Note[];
 }
 
 export class UserFillableFields {

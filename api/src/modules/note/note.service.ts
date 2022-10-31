@@ -1,26 +1,43 @@
+import { Tag } from './../tag/entities/tag.entity';
+import { TagService } from './../tag/tag.service';
+import { Note } from './entities/note.entity';
 import { Injectable } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class NoteService {
-  create(createNoteDto: CreateNoteDto) {
-    return 'This action adds a new note';
+  constructor(
+    @InjectRepository(Note)
+    private readonly noteRepository: Repository<Note>,
+    private readonly tagService: TagService,
+  ) {}
+  async create(createNoteDto: CreateNoteDto) {
+    const newNote = await this.noteRepository.create(createNoteDto);
+    let arr = [];
+    arr = createNoteDto.tagsId.map(async (id) => {
+      return this.tagService.findOne(id).then((res) => res);
+    });
+    console.log(arr);
+    newNote.tags = arr;
+    return this.noteRepository.save(newNote);
   }
 
   findAll() {
-    return `This action returns all note`;
+    return this.noteRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} note`;
+    this.noteRepository.find({ where: { id } });
   }
 
   update(id: number, updateNoteDto: UpdateNoteDto) {
-    return `This action updates a #${id} note`;
+    return this.noteRepository.update(id, updateNoteDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} note`;
+    return this.noteRepository.delete(id);
   }
 }
