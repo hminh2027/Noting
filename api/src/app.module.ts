@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './modules/auth';
-import { CommonModule } from './common';
 import { ConfigModule, ConfigService } from './common/config';
 import { DatabaseModule } from 'common/database/database.module';
 
 @Module({
-  imports: [DatabaseModule, ConfigModule, AuthModule, CommonModule],
+  imports: [DatabaseModule, ConfigModule, AuthModule],
 })
 export class AppModule {
   static port: string | number;
