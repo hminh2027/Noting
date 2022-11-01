@@ -1,7 +1,7 @@
 import { Tag } from './../tag/entities/tag.entity';
 import { TagService } from './../tag/tag.service';
 import { Note } from './entities/note.entity';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { Repository } from 'typeorm';
@@ -15,13 +15,16 @@ export class NoteService {
     private readonly tagService: TagService,
   ) {}
   async create(createNoteDto: CreateNoteDto) {
-    const newNote = await this.noteRepository.create(createNoteDto);
-    let arr = [];
-    arr = createNoteDto.tagsId.map(async (id) => {
-      return this.tagService.findOne(id).then((res) => res);
-    });
-    console.log(arr);
-    newNote.tags = arr;
+    const newNote = this.noteRepository.create(createNoteDto);
+
+    const tags = await Promise.all(
+      createNoteDto.tagsId.map(async (id) => {
+        const tag = await this.tagService.findOne(+id);
+        if (tag.length === 0) throw new NotFoundException();
+        return tag[0];
+      }),
+    );
+    newNote.tags = tags;
     return this.noteRepository.save(newNote);
   }
 

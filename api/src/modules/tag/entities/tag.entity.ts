@@ -1,3 +1,4 @@
+import { Note } from './../../note/entities/note.entity';
 import { User } from 'modules/user';
 import {
   Entity,
@@ -16,4 +17,9 @@ export class Tag {
 
   @Column()
   name: string;
+
+  /* N-N */
+  @ManyToMany(() => Note, (note) => note.tags)
+  @JoinTable()
+  notes: Note[];
 }

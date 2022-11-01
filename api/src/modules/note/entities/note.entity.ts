@@ -22,7 +22,7 @@ export class Note {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ length: 5000 })
   content: string;
 
   @Column({ type: Boolean, default: false })
@@ -49,9 +49,9 @@ export class Note {
   user: User;
 
   /* N-N */
-  @ManyToMany(() => Tag, {
+  @ManyToMany(() => Tag, (tag) => tag.notes, {
     eager: true,
+    onDelete: 'CASCADE',
   })
-  @JoinTable()
   tags: Tag[];
 }
