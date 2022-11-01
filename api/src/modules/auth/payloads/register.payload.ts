@@ -1,15 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
-import { Unique } from '../../common';
-import { Match } from '../../common/validator/match.validator';
-import { User } from './../user';
+import { Match } from 'common/validator/match.validator';
+import { Unique } from 'typeorm';
 
+@Unique(['email'])
 export class RegisterPayload {
   @ApiProperty({
     required: true,
   })
   @IsEmail()
-  @Unique([User])
   email: string;
 
   @ApiProperty({
