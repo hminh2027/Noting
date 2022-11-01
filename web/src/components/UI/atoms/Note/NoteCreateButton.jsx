@@ -8,7 +8,8 @@ export const NoteCreateButton = () => {
       leftIcon={<FaPlus />}
       variant={"solid"}
       colorScheme={"purple"}
-      size="lg"
+      size="md"
+      borderRadius={"16px"}
     >
       Create
     </Button>
