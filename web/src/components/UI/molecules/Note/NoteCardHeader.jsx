@@ -2,9 +2,9 @@ import { AvatarGroup, Avatar, IconButton } from "@chakra-ui/react";
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { NoteTag } from "../../atoms/Note";
-export const NoteCardHeader = ({ createdAt, status = "Wow" }) => {
+export const NoteCardHeader = ({ createdAt, status = "Wow", onClick }) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center" onClick={onClick}>
       <div className="flex gap-4 items-center">
         <NoteTag>{createdAt}</NoteTag>
         <AvatarGroup size="sm" max={2}>
