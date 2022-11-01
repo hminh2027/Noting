@@ -39,10 +39,15 @@ export class CreateNoteDto {
   userId: number;
 
   @ApiProperty({
-    required: true,
     type: [],
   })
   @IsArray()
+  tagsName: string[];
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
   @IsNotEmpty()
-  tagsId: number[];
+  categoryId: number;
 }

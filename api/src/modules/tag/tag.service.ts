@@ -20,8 +20,8 @@ export class TagService {
     return this.userRepository.find();
   }
 
-  async findOne(id: number) {
-    return await this.userRepository.find({ where: { id } });
+  async findOneByName(name: string) {
+    return await this.userRepository.find({ where: { name } });
   }
 
   update(id: number, updateTagDto: UpdateTagDto) {
