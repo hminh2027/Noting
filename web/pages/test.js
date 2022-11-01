@@ -5,6 +5,7 @@ import LoginForm from "../src/components/UI/template/LoginForm";
 import noteApi from "../src/api/apis/noteApi";
 import NoteTaking from "../src/components/UI/template/NoteTaking";
 import dynamic from "next/dynamic";
+import Input from "../src/components/UI/atoms/LoginInput";
 const NoteEditor = dynamic(() => import("../src/components/Editor"), {
   ssr: false,
 });
@@ -21,7 +22,9 @@ const Test = () => {
     fetchApi();
   }, []);
 
-  return <NoteEditor data={apiResult}></NoteEditor>;
+  return (
+    <Input/>
+  );
 };
 
 export default Test;
