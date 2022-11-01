@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NoteMainTemplate } from "../src/components/UI/template/Note/";
 
 import LoginForm from "../src/components/UI/template/LoginForm";
 

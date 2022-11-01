@@ -10,7 +10,8 @@ const NoteEditor = ({ data }) => {
     console.log("Editor.js is ready to work!");
   };
 
-  const onChange = () => {
+  const onChange = (api, event) => {
+    console.log(api, event);
     // https://editorjs.io/configuration#editor-modifications-callback
     console.log("Now I know that Editor's content changed!");
   };
