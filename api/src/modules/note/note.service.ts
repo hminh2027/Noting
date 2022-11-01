@@ -14,14 +14,15 @@ export class NoteService {
     private readonly noteRepository: Repository<Note>,
     private readonly tagService: TagService,
   ) {}
+  // TODO: Create attachments in here using its service
   async create(createNoteDto: CreateNoteDto) {
     const newNote = this.noteRepository.create(createNoteDto);
 
     const tags = await Promise.all(
-      createNoteDto.tagsId.map(async (id) => {
-        const tag = await this.tagService.findOne(+id);
-        if (tag.length === 0) throw new NotFoundException();
-        return tag[0];
+      createNoteDto.tagsName.map(async (name) => {
+        const tag = await this.tagService.findOneByName(name);
+        if (tag.length !== 0) return tag[0];
+        else this.tagService.create({ name });
       }),
     );
     newNote.tags = tags;

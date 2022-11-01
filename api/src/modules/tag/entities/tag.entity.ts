@@ -9,13 +9,13 @@ import {
 } from 'typeorm';
 
 @Entity({
-  name: 'tags',
+  name: 'tag',
 })
 export class Tag {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   /* N-N */
