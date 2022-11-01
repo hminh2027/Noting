@@ -1,5 +1,5 @@
 import React from "react";
-import MenuItem from "../../UI/atoms/MenuItem";
+import { NoteCategoryItem } from "../../UI/atoms/Note/";
 import { FaHome, FaUser, FaStickyNote, FaSignOutAlt } from "react-icons/fa";
 const Sidebar = () => {
   return (
@@ -8,18 +8,18 @@ const Sidebar = () => {
       <div>
         <ul className="flex flex-col gap-4">
           <li>
-            <MenuItem icon={<FaHome />} text="Home" />
+            <NoteCategoryItem icon={<FaHome />} text="Home" />
           </li>
           <li>
-            <MenuItem icon={<FaStickyNote />} text="Notes" />
+            <NoteCategoryItem icon={<FaStickyNote />} text="Notes" />
           </li>
           <li>
-            <MenuItem icon={<FaUser />} text="User" />
+            <NoteCategoryItem icon={<FaUser />} text="User" />
           </li>
         </ul>
       </div>
       <div>
-        <MenuItem icon={<FaSignOutAlt />} text="Logout" />
+        <NoteCategoryItem icon={<FaSignOutAlt />} text="Logout" />
       </div>
     </div>
   );

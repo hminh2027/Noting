@@ -1,27 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { NoteMainTemplate } from "../src/components/UI/template/Note/";
 
-import LoginForm from "../src/components/UI/template/LoginForm";
-
-import noteApi from "../src/api/apis/noteApi";
-import NoteTaking from "../src/components/UI/template/NoteTaking";
-import dynamic from "next/dynamic";
-const NoteEditor = dynamic(() => import("../src/components/Editor"), {
-  ssr: false,
-});
-const Test = () => {
-  console.log(process.env.EXAMPLE_API_URL);
-  const [apiResult, setApiResult] = useState([]);
-  useEffect(() => {
-    const fetchApi = async () => {
-      const res = await noteApi.get();
-      setApiResult(res);
-      console.log(res);
-    };
-
-    fetchApi();
-  }, []);
-
-  return <NoteEditor data={apiResult}></NoteEditor>;
+const Test = ({ noteCategories, notes }) => {
+  return <NoteMainTemplate categories={noteCategories} notes={notes} />;
 };
-
+export async function getServerSideProps(context) {
+  const notesRes = await fetch("http://localhost:8080/api/note/note");
+  const notes = await notesRes.json();
+  const noteCategoriesRes = await fetch(
+    "http://localhost:8080/api/category/category"
+  );
+  const noteCategories = await noteCategoriesRes.json();
+  return {
+    props: { notes, noteCategories }, // will be passed to the page component as props
+  };
+}
 export default Test;
