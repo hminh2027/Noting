@@ -1,3 +1,5 @@
+import { Attachment } from './../../attachment/entities/attachment.entity';
+import { Category } from 'modules/category/entities/category.entity';
 import { Tag } from 'modules/tag/entities/tag.entity';
 import { User } from 'modules/user';
 import {
@@ -9,11 +11,11 @@ import {
   ManyToOne,
   JoinColumn,
   ManyToMany,
-  JoinTable,
+  OneToMany,
 } from 'typeorm';
 
 @Entity({
-  name: 'notes',
+  name: 'note',
 })
 export class Note {
   @PrimaryGeneratedColumn()
@@ -22,7 +24,7 @@ export class Note {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ length: 5000 })
   content: string;
 
   @Column({ type: Boolean, default: false })
@@ -31,8 +33,13 @@ export class Note {
   @Column({ type: Boolean, default: false })
   isPublic: Boolean;
 
+  // TODO: When have authentication installed
+  // pls remove userId in create-note.dto and use value from token
   @Column()
-  userId!: number;
+  userId: number;
+
+  @Column()
+  categoryId: number;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -48,10 +55,23 @@ export class Note {
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  /* N-N */
-  @ManyToMany(() => Tag, {
+  @ManyToOne(() => Category, (category) => category.notes, {
     eager: true,
+    onDelete: 'CASCADE',
   })
-  @JoinTable()
+  @JoinColumn({ name: 'categoryId' })
+  category: Category;
+
+  /* 1-N */
+  @OneToMany(() => Attachment, (att) => att.note, {
+    eager: true,
+    cascade: true,
+  })
+  attachments: Attachment[];
+  /* N-N */
+  @ManyToMany(() => Tag, (tag) => tag.notes, {
+    eager: true,
+    onDelete: 'CASCADE',
+  })
   tags: Tag[];
 }

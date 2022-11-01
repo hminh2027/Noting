@@ -1,3 +1,4 @@
+import { Note } from './../../note/entities/note.entity';
 import { User } from 'modules/user';
 import {
   Entity,
@@ -8,12 +9,17 @@ import {
 } from 'typeorm';
 
 @Entity({
-  name: 'tags',
+  name: 'tag',
 })
 export class Tag {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
+
+  /* N-N */
+  @ManyToMany(() => Note, (note) => note.tags)
+  @JoinTable()
+  notes: Note[];
 }
