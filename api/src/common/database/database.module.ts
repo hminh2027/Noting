@@ -3,6 +3,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
 
+//hit tho di?
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -17,8 +18,8 @@ import { ConfigService } from '../config/config.service';
           password: config.get('DB_PASSWORD'),
           database: config.get('DB_DATABASE'),
           entities: [__dirname + './../../modules/**/*.entity{.ts,.js}'],
-          synchronize: config.isEnv,
-          logging: config.isEnv,
+          // synchronize: config.isEnv,
+          // logging: config.isEnv,
         } as TypeOrmModuleOptions),
     }),
   ],
