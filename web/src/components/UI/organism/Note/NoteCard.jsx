@@ -1,6 +1,5 @@
 import { useDisclosure } from "@chakra-ui/react";
 import React, { useState } from "react";
-import {} from "react-icons/fa";
 import { NoteTag } from "../../atoms/Note";
 import { NoteCardBody, NoteCardHeader } from "../../molecules/Note";
 import { NoteEditModal } from "../../molecules/Note/NoteEditModal";
