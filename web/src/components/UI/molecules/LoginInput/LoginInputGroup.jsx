@@ -15,18 +15,25 @@ const LoginInputGroup = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   return (
-    <Stack spacing={4}>
+    <Stack spacing={8}>
       <InputGroup>
         <InputLeftElement
           pointerEvents="none"
           children={<VscAccount color="gray.300" />}
         />
-        <Input type="tel" placeholder="Email Address" />
+        <Input
+          bg="gray.200"
+          borderRadius="10px"
+          type="tel"
+          placeholder="Email Address"
+        />
       </InputGroup>
 
       <InputGroup size="md">
         <Input
+          bg="gray.200"
           pr="4.5rem"
+          borderRadius="10px"
           type={show ? "text" : "password"}
           placeholder="Password"
         />
@@ -40,9 +47,9 @@ const LoginInputGroup = () => {
           </div>
         </InputRightElement>
       </InputGroup>
-      
+
       <div>
-        <div class= "float-right">Forgot your password ?</div>
+        <div class="float-right">Forgot your password ?</div>
       </div>
     </Stack>
   );
