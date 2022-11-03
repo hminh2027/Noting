@@ -14,7 +14,7 @@ export class NoteService {
     private readonly noteRepository: Repository<Note>,
     private readonly tagService: TagService,
   ) {}
-  // TODO: Create attachments in here using its service
+  // TODO: Create attachments here using its service
   async create(createNoteDto: CreateNoteDto) {
     const newNote = this.noteRepository.create(createNoteDto);
 
