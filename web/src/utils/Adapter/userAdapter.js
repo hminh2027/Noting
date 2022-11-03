@@ -1,4 +1,4 @@
-export class noteAdapter {
+export class userAdapter {
   constructor(user) {
     this.user = user;
   }

@@ -7,35 +7,28 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  Input,
+  Button,
 } from "@chakra-ui/react";
+import { NoteActivityList } from "./NoteActivityList";
 export const NoteActivityDrawer = ({ isOpen, onOpen, onClose }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Open
-      </Button>
       <Drawer
         isOpen={isOpen}
         placement="right"
         onClose={onClose}
-        finalFocusRef={btnRef}
+        size={"sm"}
+        // finalFocusRef={btnRef}
       >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerHeader>Note's activities</DrawerHeader>
 
           <DrawerBody>
-            <Input placeholder="Type here..." />
+            <NoteActivityList />
           </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Save</Button>
-          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>
