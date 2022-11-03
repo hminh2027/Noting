@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { PasswordTransformer } from './password.transformer';
 
 @Entity({
-  name: 'users',
+  name: 'user',
 })
 export class User {
   @PrimaryGeneratedColumn()

@@ -1,12 +1,22 @@
+import { AttachmentModule } from './modules/attachment/attachment.module';
 import { NoteModule } from './modules/note/note.module';
 import { Module } from '@nestjs/common';
 import { AuthModule } from './modules/auth';
 import { ConfigModule, ConfigService } from './common/config';
 import { DatabaseModule } from './common/database/database.module';
 import { TagModule } from 'modules/tag/tag.module';
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
-  imports: [DatabaseModule, ConfigModule, AuthModule, NoteModule, TagModule],
+  imports: [
+    DatabaseModule,
+    ConfigModule,
+    AuthModule,
+    NoteModule,
+    TagModule,
+    CategoryModule,
+    AttachmentModule,
+  ],
 })
 export class AppModule {
   static port: string | number;
