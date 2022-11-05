@@ -1,4 +1,4 @@
-import { Note } from './entities/note.entity';
+import { Note } from './note.entity';
 import { Module } from '@nestjs/common';
 import { NoteService } from './note.service';
 import { NoteController } from './note.controller';
