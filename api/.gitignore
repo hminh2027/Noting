@@ -17,6 +17,9 @@ yarn-error.log
 # build
 /dist
 
+# image
+images/
+
 # tests
 /test
 /coverage

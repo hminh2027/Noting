@@ -22,15 +22,16 @@ const LoginInputGroup = () => {
           children={<VscAccount color="gray.300" />}
         />
         <Input
-          bg='gray.200'
+          bg="gray.200"
           borderRadius="10px"
-          type="tel" 
-          placeholder="Email Address" />
+          type="tel"
+          placeholder="Email Address"
+        />
       </InputGroup>
 
       <InputGroup size="md">
         <Input
-          bg='gray.200'
+          bg="gray.200"
           pr="4.5rem"
           borderRadius="10px"
           type={show ? "text" : "password"}
@@ -46,9 +47,9 @@ const LoginInputGroup = () => {
           </div>
         </InputRightElement>
       </InputGroup>
-      
+
       <div>
-        <div class= "float-right">Forgot your password ?</div>
+        <div class="float-right">Forgot your password ?</div>
       </div>
     </Stack>
   );
