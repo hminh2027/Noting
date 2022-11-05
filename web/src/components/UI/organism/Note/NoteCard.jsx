@@ -1,6 +1,5 @@
 import { useDisclosure } from "@chakra-ui/react";
 import React, { useState } from "react";
-import {} from "react-icons/fa";
 import { NoteTag } from "../../atoms/Note";
 import { NoteCardBody, NoteCardHeader } from "../../molecules/Note";
 import { NoteEditModal } from "../../molecules/Note/NoteEditModal";
@@ -12,16 +11,19 @@ export const NoteCard = ({ note }) => {
       <NoteCardHeader
         createdAt={note.createdAt}
         status={note.status && note.status}
-        onClick={onOpen}
+        // onClick={onOpen}
       />
       <NoteCardBody
         title={note.title}
         content={note.content}
         onClick={onOpen}
+        className="py-2"
       />
       <div className="flex gap-4">
-        {note.tags.map((tag) => (
-          <NoteTag colorScheme="gray">{tag.name}</NoteTag>
+        {note.tags.map((tag, index) => (
+          <NoteTag key={index} colorScheme="gray">
+            {tag.name}
+          </NoteTag>
         ))}
       </div>
       <NoteEditModal isOpen={isOpen} onClose={onClose} note={note} />

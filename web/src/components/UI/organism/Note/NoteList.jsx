@@ -13,8 +13,8 @@ export const NoteList = ({ notes, className }) => {
         </div>
       </div>
       <div className="flex flex-col flex-1 gap-4">
-        {notes?.map((note) => (
-          <NoteCard note={note} />
+        {notes?.map((note, index) => (
+          <NoteCard key={index} note={note} />
         ))}
       </div>
     </div>

@@ -1,10 +1,9 @@
 import React from "react";
-import { NoteList, NoteSidebar } from "../../organism/Note";
-export const NoteMainTemplate = ({ categories, notes }) => {
+import { NoteList } from "../../organism/Note";
+export const NoteMainTemplate = ({ notes }) => {
   return (
     <div className="flex ">
-      <NoteSidebar categories={categories} />
-      <NoteList notes={notes} className="p-4" />
+      <NoteList notes={notes} />
     </div>
   );
 };
