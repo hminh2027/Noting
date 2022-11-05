@@ -1,26 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateSnapshotDto } from './dto/create-snapshot.dto';
-import { UpdateSnapshotDto } from './dto/update-snapshot.dto';
+import { SnapShot } from './snapshot.entity';
 
 @Injectable()
 export class SnapshotService {
-  create(createSnapshotDto: CreateSnapshotDto) {
-    return 'This action adds a new snapshot';
-  }
+  constructor(
+    @InjectRepository(SnapShot)
+    private readonly snapShotRepository: Repository<SnapShot>,
+  ) {}
+  async create(createSnapshotDto: CreateSnapshotDto) {
+    console.log(createSnapshotDto);
 
-  findAll() {
-    return `This action returns all snapshot`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} snapshot`;
-  }
-
-  update(id: number, updateSnapshotDto: UpdateSnapshotDto) {
-    return `This action updates a #${id} snapshot`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} snapshot`;
+    const newSnap = await this.snapShotRepository.create(createSnapshotDto);
+    return await this.snapShotRepository.save(newSnap);
   }
 }

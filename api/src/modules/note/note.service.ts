@@ -1,6 +1,6 @@
 import { Tag } from './../tag/entities/tag.entity';
 import { TagService } from './../tag/tag.service';
-import { Note } from './entities/note.entity';
+import { Note } from './note.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
@@ -16,7 +16,7 @@ export class NoteService {
   ) {}
   // TODO: Create attachments here using its service
   async create(createNoteDto: CreateNoteDto) {
-    const newNote = this.noteRepository.create(createNoteDto);
+    const newNote = await this.noteRepository.create(createNoteDto);
 
     const tags = await Promise.all(
       createNoteDto.tagsName.map(async (name) => {
@@ -26,7 +26,7 @@ export class NoteService {
       }),
     );
     newNote.tags = tags;
-    return this.noteRepository.save(newNote);
+    return await this.noteRepository.save(newNote);
   }
 
   findAll() {

@@ -1,4 +1,4 @@
-import { Attachment } from './entities/attachment.entity';
+import { Attachment } from './attachment.entity';
 import { Module } from '@nestjs/common';
 import { AttachmentService } from './attachment.service';
 import { AttachmentController } from './attachment.controller';

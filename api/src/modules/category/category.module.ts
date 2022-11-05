@@ -1,4 +1,4 @@
-import { Category } from 'modules/category/entities/category.entity';
+import { Category } from 'modules/category/category.entity';
 import { Module } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CategoryController } from './category.controller';

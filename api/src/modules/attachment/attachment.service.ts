@@ -1,4 +1,4 @@
-import { Attachment } from './entities/attachment.entity';
+import { Attachment } from './attachment.entity';
 import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { CreateAttachmentDto } from './dto/create-attachment.dto';
 import { UpdateAttachmentDto } from './dto/update-attachment.dto';
@@ -34,13 +34,18 @@ export class AttachmentService {
     const base64Data = base64string.replace(/^data:image\/png;base64,/, '');
     const imageName = `${+new Date()}.png`;
 
-    fs.mkdir('images/', { recursive: true }, (err) => {
+    fs.mkdir('public/images/', { recursive: true }, (err) => {
       if (err) throw err;
     });
 
-    fs.writeFile(`images/${imageName}`, base64Data, 'base64', function (err) {
-      return null;
-    });
+    fs.writeFile(
+      `public/images/${imageName}`,
+      base64Data,
+      'base64',
+      function (err) {
+        return null;
+      },
+    );
 
     return imageName;
   }

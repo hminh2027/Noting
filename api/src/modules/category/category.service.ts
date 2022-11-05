@@ -1,4 +1,4 @@
-import { Category } from 'modules/category/entities/category.entity';
+import { Category } from 'modules/category/category.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
