@@ -1,6 +1,8 @@
-import { Note } from './../note/entities/note.entity';
+import { SnapShot } from './../snapshot/snapshot.entity';
+import { Note } from '../note/note.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { PasswordTransformer } from './password.transformer';
+import { Comment } from 'modules/comment/comment.entity';
 
 @Entity({
   name: 'user',
@@ -33,6 +35,12 @@ export class User {
   /* 1-N */
   @OneToMany(() => Note, (note) => note.user, { cascade: true })
   notes: Note[];
+
+  @OneToMany(() => SnapShot, (snap) => snap.user)
+  snapshots: SnapShot[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 }
 
 export class UserFillableFields {
