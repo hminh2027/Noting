@@ -18,7 +18,7 @@ import { ConfigService } from '../config/config.service';
           password: config.get('DB_PASSWORD'),
           database: config.get('DB_DATABASE'),
           entities: [__dirname + './../../modules/**/*.entity{.ts,.js}'],
-          // synchronize: config.isEnv,
+          synchronize: true,
           // logging: config.isEnv,
         } as TypeOrmModuleOptions),
     }),

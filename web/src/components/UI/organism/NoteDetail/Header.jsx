@@ -8,11 +8,12 @@ export const Header = ({ note }) => {
 
   return (
     <div className="flex justify-between">
-      <Text fontSize="lg">{note.title}</Text>
+      <Text fontSize="lg" fontWeight={"medium"}>
+        {note.title}
+      </Text>
       <div className="flex gap-4">
-        <IconButton icon={<AiOutlineClockCircle />} onClick={onOpen}>
-          Open
-        </IconButton>
+        <IconButton icon={<AiOutlineClockCircle />} onClick={onOpen} />
+
         <NoteActivityDrawer isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       </div>
     </div>

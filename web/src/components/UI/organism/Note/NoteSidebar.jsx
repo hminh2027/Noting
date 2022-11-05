@@ -1,3 +1,4 @@
+import { Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { NoteCategory } from "../../molecules/Note";
 
@@ -7,6 +8,7 @@ export const NoteSidebar = ({ categories, className }) => {
       {categories?.map((item) => (
         <NoteCategory title={item.title} items={item.items} />
       ))}
+      <Button>Add Category</Button>
     </div>
   );
 };
