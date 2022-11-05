@@ -5,4 +5,4 @@ const Login = () => {
   return <LoginTemplate></LoginTemplate>;
 };
 
-export default Test;
+export default Login;
