@@ -1,14 +1,22 @@
-import { Note } from 'modules/note/entities/note.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Note } from 'modules/note/note.entity';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 
 @Entity({
   name: 'attachment',
 })
+// @Index(['fileName', 'noteId'], { unique: true })
 export class Attachment {
   @PrimaryColumn()
   fileName: string;
 
-  @Column()
+  @PrimaryColumn()
   noteId: number;
 
   /* N-1 */

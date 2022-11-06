@@ -1,7 +1,7 @@
 import React from "react";
 import { WrapItem, Avatar, Center } from "@chakra-ui/react";
 
-const AvatarUserLogin = ({className}) => {
+const AvatarUserLogin = ({ className }) => {
   return (
     <div className={`${className}`}>
       <Center>

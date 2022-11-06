@@ -1,5 +1,6 @@
-import { Attachment } from './../../attachment/entities/attachment.entity';
-import { Category } from 'modules/category/entities/category.entity';
+import { SnapShot } from './../snapshot/snapshot.entity';
+import { Attachment } from '../attachment/attachment.entity';
+import { Category } from 'modules/category/category.entity';
 import { Tag } from 'modules/tag/entities/tag.entity';
 import { User } from 'modules/user';
 import {
@@ -13,6 +14,7 @@ import {
   ManyToMany,
   OneToMany,
 } from 'typeorm';
+import { Comment } from 'modules/comment/comment.entity';
 
 @Entity({
   name: 'note',
@@ -68,6 +70,19 @@ export class Note {
     cascade: true,
   })
   attachments: Attachment[];
+
+  @OneToMany(() => SnapShot, (snap) => snap.note, {
+    eager: true,
+    cascade: true,
+  })
+  snapshots: SnapShot[];
+
+  @OneToMany(() => Comment, (comment) => comment.note, {
+    eager: true,
+    cascade: true,
+  })
+  comments: Comment[];
+
   /* N-N */
   @ManyToMany(() => Tag, (tag) => tag.notes, {
     eager: true,
