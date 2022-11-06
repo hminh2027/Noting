@@ -1,8 +1,7 @@
 import axiosClient from "../../api/axiosClient";
 import useSWR, { mutate } from "swr";
 const fetcher = async (key, params) => {
-  const resp = await axiosClient.get(`/api/note/note`);
-  console.log("From fetcher", resp);
+  const resp = await axiosClient.get(`/note`);
   return resp;
 };
 export function useGetNote(id) {

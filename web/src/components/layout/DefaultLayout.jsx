@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import React from "react";
 import { useGetNoteCategory } from "../../hooks/swr";
 import { NoteSidebar } from "../UI/organism/Note";
@@ -5,6 +6,8 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 export const DefaultLayout = ({ children }) => {
+  const { user, loading } = useSession();
+  console.log(user);
   const { categories, isError, isLoading } = useGetNoteCategory();
   return (
     <div className="flex">

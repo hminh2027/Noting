@@ -30,11 +30,12 @@ export const NoteCategory = ({ title, items, className }) => {
         </AccordionButton>
         <AccordionPanel padding={"0"}>
           <div className="flex flex-col">
-            {items.map((item) => (
+            {items.map((item, index) => (
               <Button
                 variant="ghost"
                 colorScheme="teal"
                 className="justify-start"
+                key={index}
               >
                 {item.name}
               </Button>
