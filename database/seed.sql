@@ -23,7 +23,7 @@ INSERT INTO `tag_notes_note` VALUES (3, 1);
 INSERT INTO `tag_notes_note` VALUES (1, 1);
 
 -- SNAPSHOT
-INSERT INTO `snapshot` VALUES ("101 bài học nên nhớ khi dùng Javascript", 1, "Hello im snapshot!", 1, "Someone just change the content", "2022-11-03 00:04:43.392513");
+INSERT INTO `snapshot` (title, userId, content, noteId, description, createdAt) VALUES ("101 bài học nên nhớ khi dùng Javascript", 1, "Hello im snapshot!", 1, "Someone just change the content", "2022-11-03 00:04:43.392513");
 INSERT INTO `snapshot` VALUES ("101 bài học nên nhớ khi dùng Javascript", 1, "snapshot 2!", 1, "Someone just change the content", "2022-11-04 00:04:43.392513");
 INSERT INTO `snapshot` VALUES ("101 bài học nên nhớ khi dùng Javascript", 1, "snapshot 3!", 1, "Someone just change the content", "2022-11-05 00:04:43.392513");
 
