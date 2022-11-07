@@ -20,10 +20,6 @@ export class CategoryService {
     return this.categoryRepository.find();
   }
 
-  findOne(id: number) {
-    return this.categoryRepository.findByIds([id]);
-  }
-
   update(id: number, updateCategoryDto: UpdateCategoryDto) {
     return this.categoryRepository.update(id, updateCategoryDto);
   }

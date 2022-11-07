@@ -25,6 +25,7 @@
     "seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed -n src/config/ormconfig.js"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.8.1",
     "@nestjs/common": "^9.1.6",
     "@nestjs/core": "^9.1.6",
     "@nestjs/jwt": "^9.0.0",

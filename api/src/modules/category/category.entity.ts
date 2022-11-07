@@ -12,6 +12,6 @@ export class Category {
   name: string;
 
   /* 1-N */
-  @OneToMany(() => Note, (note) => note.tags, { cascade: true })
+  @OneToMany(() => Note, (note) => note.tags, { cascade: true, eager: true })
   notes: Note[];
 }
