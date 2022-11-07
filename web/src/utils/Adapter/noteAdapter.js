@@ -1,11 +1,19 @@
-export class NoteAdapter {
-  constructor(note) {
-    this.note = note;
+class NoteAdapter {
+  constructor() {
+    this.note = undefined;
   }
-  getContent() {
-    return { blocks: this.note.content };
+  setNote(note) {
+    this.note = note;
+    return this;
+  }
+  convertContentToBlock() {
+    return { blocks: JSON.parse(this.note.content) };
+  }
+  converBlockToContent() {
+    return {};
   }
   exportContent() {
     return { content: [] };
   }
 }
+export const noteAdapter = new NoteAdapter();

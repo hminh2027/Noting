@@ -8,7 +8,6 @@ const NoteDetail = () => {
     isLoading: isNoteLoading,
     isError: isNoteError,
   } = useGetNote();
-  console.log(notes);
   if (isNoteLoading) return <div></div>;
   return <NoteDetailTemplate note={notes[0]} />;
 };

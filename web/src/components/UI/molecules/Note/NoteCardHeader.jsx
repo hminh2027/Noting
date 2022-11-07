@@ -8,6 +8,7 @@ export const NoteCardHeader = ({
   onClick,
   onEdit,
   onDelete,
+  note,
 }) => {
   return (
     <div className="flex justify-between items-center" onClick={onClick}>
