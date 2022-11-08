@@ -1,8 +1,11 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { NoteDetailTemplate } from "../../src/components/UI/template/Note/NoteDetailTemplate";
-import { useGetNote } from "../../src/hooks/swr";
+import { useGetNoteById, useGetNote } from "../../src/hooks/swr";
 
 const NoteDetail = () => {
+  const { id } = useRouter().query;
+
   const {
     notes,
     isLoading: isNoteLoading,

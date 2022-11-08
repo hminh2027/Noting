@@ -7,10 +7,15 @@ class NoteAdapter {
     return this;
   }
   convertContentToBlock() {
-    return { blocks: JSON.parse(this.note.content) };
+    this.note = { ...this.note, blocks: JSON.parse(this.note.content) };
+    return this;
   }
   converBlockToContent() {
-    return {};
+    this.note = { ...this.note, content: JSON.stringify(this.note.blocks) };
+    return this;
+  }
+  getNote() {
+    return this.note;
   }
   exportContent() {
     return { content: [] };
