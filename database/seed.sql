@@ -4,9 +4,9 @@ INSERT INTO `category` (name) VALUES ("Giải trí");
 INSERT INTO `category` (name) VALUES ("Sức khỏe");
 
 -- USER
-INSERT INTO `user` (firstName, lastName, email, password) VALUES ("Ông", "Liêm", "bactuliem@gmail.com", '$10$qKBIRsIUeEQ9oC/F3IXS1.2IQZSWhSnpjz3Ec/RF/gi.DbTM2Cebe');
-INSERT INTO `user` (firstName, lastName, email, password) VALUES ("Ông", "Sắc", "saccute@gmail.com", '$10$qKBIRsIUeEQ9oC/F3IXS1.2IQZSWhSnpjz3Ec/RF/gi.DbTM2Cebe');
-INSERT INTO `user` (firstName, lastName, email, password) VALUES ("Ông", "Lích", "lickiminad@gmail.com", '$10$qKBIRsIUeEQ9oC/F3IXS1.2IQZSWhSnpjz3Ec/RF/gi.DbTM2Cebe');
+INSERT INTO `user` (firstName, lastName, email, password) VALUES ("Ông", "Liêm", "bactuliem@gmail.com", '$2b$10$Mj/cA5zM4Gsq/0DPoRvsSeRdckrY/sS.QNQiIJDIj9K//za63Z/Ai');
+INSERT INTO `user` (firstName, lastName, email, password) VALUES ("Ông", "Sắc", "saccute@gmail.com", '$2b$10$Mj/cA5zM4Gsq/0DPoRvsSeRdckrY/sS.QNQiIJDIj9K//za63Z/Ai');
+INSERT INTO `user` (firstName, lastName, email, password) VALUES ("Ông", "Lích", "lickiminad@gmail.com", '$2b$10$Mj/cA5zM4Gsq/0DPoRvsSeRdckrY/sS.QNQiIJDIj9K//za63Z/Ai');
 
 -- TAG
 INSERT INTO `tag` (name) VALUES ("Lập trình");
@@ -24,18 +24,22 @@ INSERT INTO `tag_notes_note` VALUES (1, 1);
 
 -- SNAPSHOT
 INSERT INTO `snapshot` (title, userId, content, noteId, description, createdAt) VALUES ("101 bài học nên nhớ khi dùng Javascript", 1, "Hello im snapshot!", 1, "Someone just change the content", "2022-11-03 00:04:43.392513");
-INSERT INTO `snapshot` VALUES ("101 bài học nên nhớ khi dùng Javascript", 1, "snapshot 2!", 1, "Someone just change the content", "2022-11-04 00:04:43.392513");
-INSERT INTO `snapshot` VALUES ("101 bài học nên nhớ khi dùng Javascript", 1, "snapshot 3!", 1, "Someone just change the content", "2022-11-05 00:04:43.392513");
+INSERT INTO `snapshot` (title, userId, content, noteId, description, createdAt) VALUES ("101 bài học nên nhớ khi dùng Javascript", 1, "snapshot 2!", 1, "Someone just change the content", "2022-11-04 00:04:43.392513");
+INSERT INTO `snapshot` (title, userId, content, noteId, description, createdAt) VALUES ("101 bài học nên nhớ khi dùng Javascript", 1, "snapshot 3!", 1, "Someone just change the content", "2022-11-05 00:04:43.392513");
 
 -- ATTACHMENT
 INSERT INTO `attachment` VALUES ("image.png", 1);
 INSERT INTO `attachment` VALUES ("image2.png", 2);
-INSERT INTO `attachment` VALUES ("image2.png", 2);
+INSERT INTO `attachment` VALUES ("image2.png", 1);
 
 -- COMMENT
 INSERT INTO `comment` (content, userId, noteId, createdAt, updatedAt) VALUES ("OMG so great!", 1, 1, "2022-11-03 00:04:43.392513", "2022-11-03 00:04:43.392513");
 INSERT INTO `comment` (content, userId, noteId, createdAt, updatedAt) VALUES ("Keep it up sir!", 2, 1, "2022-11-04 00:04:43.392513", "2022-11-04 00:04:43.392513");
 INSERT INTO `comment` (content, userId, noteId, createdAt, updatedAt) VALUES ("Damn that was nice!", 2, 2, "2022-12-03 00:04:43.392513", "2022-12-03 00:04:43.392513");
 
--- SHARED NOTE
+-- USER CATEGORY
+INSERT INTO `user_categories_category` VALUES (1, 1);
+INSERT INTO `user_categories_category` VALUES (1, 2);
+INSERT INTO `user_categories_category` VALUES (3, 2);
 
+-- SHARED NOTE

@@ -1,7 +1,7 @@
 import { SnapShot } from './../snapshot/snapshot.entity';
 import { Attachment } from '../attachment/attachment.entity';
 import { Category } from 'modules/category/category.entity';
-import { Tag } from 'modules/tag/entities/tag.entity';
+import { Tag } from 'modules/tag/tag.entity';
 import { User } from 'modules/user';
 import {
   Entity,

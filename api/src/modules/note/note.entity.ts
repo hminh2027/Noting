@@ -1,7 +1,7 @@
 import { SnapShot } from './../snapshot/snapshot.entity';
 import { Attachment } from '../attachment/attachment.entity';
 import { Category } from 'modules/category/category.entity';
-import { Tag } from 'modules/tag/entities/tag.entity';
+import { Tag } from 'modules/tag/tag.entity';
 import { User } from 'modules/user';
 import {
   Entity,
@@ -51,8 +51,8 @@ export class Note {
 
   /* N-1 */
   @ManyToOne(() => User, (user) => user.notes, {
-    eager: true,
     onDelete: 'CASCADE',
+    eager: true,
   })
   @JoinColumn({ name: 'userId' })
   user: User;
@@ -67,19 +67,19 @@ export class Note {
   /* 1-N */
   @OneToMany(() => Attachment, (att) => att.note, {
     eager: true,
-    cascade: true,
+    onDelete: 'CASCADE',
   })
   attachments: Attachment[];
 
   @OneToMany(() => SnapShot, (snap) => snap.note, {
     eager: true,
-    cascade: true,
+    onDelete: 'CASCADE',
   })
   snapshots: SnapShot[];
 
   @OneToMany(() => Comment, (comment) => comment.note, {
     eager: true,
-    cascade: true,
+    onDelete: 'CASCADE',
   })
   comments: Comment[];
 

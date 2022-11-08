@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { User, UserFillableFields } from './user.entity';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
@@ -21,6 +21,7 @@ export class UsersService {
 
   async create(payload: UserFillableFields) {
     const user = await this.getByEmail(payload.email);
+    console.log('called');
 
     if (user) {
       throw new NotAcceptableException(
@@ -29,5 +30,14 @@ export class UsersService {
     }
 
     return await this.userRepository.save(payload);
+  }
+
+  async getCategoriesByUserId(userId: number) {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.categories', 'category')
+      .leftJoinAndSelect('category.notes', 'note')
+      .where('user.id = :userId', { userId })
+      .getMany();
   }
 }
