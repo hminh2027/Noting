@@ -1,4 +1,4 @@
-import { Tag } from './entities/tag.entity';
+import { Tag } from './tag.entity';
 import { Module } from '@nestjs/common';
 import { TagService } from './tag.service';
 import { TagController } from './tag.controller';

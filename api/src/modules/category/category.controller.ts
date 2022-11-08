@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import {
   Controller,
   Get,
@@ -15,7 +16,10 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 @Controller('category')
 @ApiTags('category')
 export class CategoryController {
-  constructor(private readonly categoryService: CategoryService) {}
+  constructor(
+    private readonly categoryService: CategoryService,
+    private readonly userService: UserService,
+  ) {}
 
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
@@ -24,7 +28,7 @@ export class CategoryController {
 
   @Get()
   findAll() {
-    return this.categoryService.findAll();
+    return this.userService.getCategoriesByUserId(1);
   }
 
   @Patch(':id')
