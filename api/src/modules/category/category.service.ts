@@ -16,12 +16,12 @@ export class CategoryService {
     return this.categoryRepository.save(newCat);
   }
 
-  findAll() {
-    return this.categoryRepository.find();
-  }
-
-  findOne(id: number) {
-    return this.categoryRepository.findByIds([id]);
+  findManyByUserId(userId: number) {
+    return this.categoryRepository
+      .createQueryBuilder('category')
+      .leftJoinAndSelect('category.users', 'user')
+      .where('user.id = :userId', { userId })
+      .getMany();
   }
 
   update(id: number, updateCategoryDto: UpdateCategoryDto) {
