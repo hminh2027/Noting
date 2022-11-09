@@ -19,8 +19,9 @@ import {
   InviteInput,
 } from "../src/components/UI/molecules/NoteShare";
 import { NoteSharePopover } from "../src/components/UI/molecules/NoteShare/NoteSharePopover";
+import { NoteCreate } from "../src/components/UI/molecules/NoteCreate/NoteCreate";
 const Test = ({ noteCategories, notes }) => {
-  return <NoteSharePopover />;
+  return <NoteCreate />;
 };
 
 export default Test;
