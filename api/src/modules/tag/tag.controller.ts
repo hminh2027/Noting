@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { TagService } from './tag.service';
 import { CreateTagDto } from './dto/create-tag.dto';
@@ -14,6 +16,7 @@ import { ApiTags } from '@nestjs/swagger';
 
 @Controller('tag')
 @ApiTags('tag')
+@UsePipes(ValidationPipe)
 export class TagController {
   constructor(private readonly tagService: TagService) {}
 

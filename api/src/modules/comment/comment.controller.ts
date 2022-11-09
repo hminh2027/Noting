@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CommentService } from './comment.service';
@@ -14,6 +16,7 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Controller('comment')
 @ApiTags('comment')
+@UsePipes(ValidationPipe)
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 

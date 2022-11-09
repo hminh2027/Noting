@@ -7,14 +7,19 @@ import {
   Patch,
   Param,
   Delete,
+  UsePipes,
+  ValidationPipe,
+  HttpStatus,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { ReqUser } from 'common/decorator/user.decorator';
 
 @Controller('category')
 @ApiTags('category')
+@UsePipes(ValidationPipe)
 export class CategoryController {
   constructor(
     private readonly categoryService: CategoryService,
@@ -22,8 +27,12 @@ export class CategoryController {
   ) {}
 
   @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoryService.create(createCategoryDto);
+  create(@ReqUser() user, @Body() createCategoryDto: CreateCategoryDto) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Comment created successfully',
+      data: this.categoryService.create(user, createCategoryDto),
+    };
   }
 
   @Get()

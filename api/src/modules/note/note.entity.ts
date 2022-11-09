@@ -26,7 +26,7 @@ export class Note {
   @Column()
   title: string;
 
-  @Column({ length: 5000 })
+  @Column({ length: 5000, nullable: true })
   content: string;
 
   @Column({ type: Boolean, default: false })
@@ -35,8 +35,6 @@ export class Note {
   @Column({ type: Boolean, default: false })
   isPublic: Boolean;
 
-  // TODO: When have authentication installed
-  // pls remove userId in create-note.dto and use value from token
   @Column()
   userId: number;
 

@@ -20,7 +20,7 @@ export class SnapShot {
   @Column()
   title: string;
 
-  @Column({ length: 5000 })
+  @Column({ length: 5000, nullable: true })
   content: string;
 
   @Column()
