@@ -6,39 +6,56 @@ import {
   Patch,
   Param,
   Delete,
+  UsePipes,
+  ValidationPipe,
+  UseGuards,
+  HttpStatus,
 } from '@nestjs/common';
 import { NoteService } from './note.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ReqUser } from 'common/decorator/user.decorator';
+import { JwtAuthGuard } from 'common/guards/jwt.guard';
 
 @Controller('note')
 @ApiTags('note')
+@UsePipes(ValidationPipe)
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}
 
   @Post()
-  create(@Body() createNoteDto: CreateNoteDto) {
-    return this.noteService.create(createNoteDto);
+  async create(@ReqUser() user, @Body() createNoteDto: CreateNoteDto) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Note created successfully',
+      data: await this.noteService.create(user.id, createNoteDto),
+    };
   }
 
   @Get()
-  findAll() {
-    return this.noteService.findAll();
+  findAll(@ReqUser() user) {
+    return this.noteService.getManyByUserId(user.id);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.noteService.findOne(+id);
+  findOne(@Param('id') id: number, @ReqUser() user) {
+    return this.noteService.getOneById(+id, user.id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updateNoteDto: UpdateNoteDto) {
-    return this.noteService.update(+id, updateNoteDto);
+  update(
+    @Param('id') id: number,
+    @ReqUser() user,
+    @Body() updateNoteDto: UpdateNoteDto,
+  ) {
+    return this.noteService.update(+id, user.id, updateNoteDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.noteService.remove(+id);
+  remove(@ReqUser() user, @Param('id') id: number) {
+    return this.noteService.remove(+id, user.id);
   }
 }

@@ -11,7 +11,7 @@ export class CategoryService {
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,
   ) {}
-  async create(createCategoryDto: CreateCategoryDto) {
+  async create(user, createCategoryDto: CreateCategoryDto) {
     const newCat = await this.categoryRepository.create(createCategoryDto);
     return this.categoryRepository.save(newCat);
   }

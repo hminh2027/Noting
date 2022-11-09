@@ -53,7 +53,6 @@ export class User {
   /* N-N */
   @ManyToMany(() => Category, {
     onDelete: 'CASCADE',
-    eager: true,
   })
   @JoinTable()
   categories: Category[];
