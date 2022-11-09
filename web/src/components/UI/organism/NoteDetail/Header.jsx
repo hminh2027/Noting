@@ -1,6 +1,11 @@
 import { IconButton, Text, useDisclosure } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import React from "react";
 import { AiOutlineClockCircle } from "react-icons/ai";
+import { NoteSharePopover } from "../../molecules/NoteShare/NoteSharePopover";
+// const NoteSharePopover = dynamic(
+//   import("../../molecules/NoteShare/NoteSharePopover")
+// ).;
 import { NoteActivityDrawer } from "../NoteActivity";
 
 export const Header = ({ note }) => {
@@ -12,7 +17,12 @@ export const Header = ({ note }) => {
         {note.title}
       </Text>
       <div className="flex gap-4">
-        <IconButton icon={<AiOutlineClockCircle />} onClick={onOpen} />
+        <NoteSharePopover />
+        <IconButton
+          size="sm"
+          icon={<AiOutlineClockCircle />}
+          onClick={onOpen}
+        />
 
         <NoteActivityDrawer isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       </div>

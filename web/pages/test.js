@@ -14,27 +14,13 @@ import {
   Avatar,
 } from "@chakra-ui/react";
 import {
+  AccountList,
   AccountRow,
   InviteInput,
 } from "../src/components/UI/molecules/NoteShare";
+import { NoteSharePopover } from "../src/components/UI/molecules/NoteShare/NoteSharePopover";
 const Test = ({ noteCategories, notes }) => {
-  return (
-    <Popover matchWidth>
-      <PopoverTrigger>
-        <Button>Trigger</Button>
-      </PopoverTrigger>
-      <PopoverContent width={"350px"}>
-        {/* <PopoverBody> */}
-        <div className="flex flex-col gap-2 p-2">
-          <InviteInput />
-          <div className="flex flex-col">
-            <AccountRow />
-          </div>
-        </div>
-        {/* </PopoverBody> */}
-      </PopoverContent>
-    </Popover>
-  );
+  return <NoteSharePopover />;
 };
 
 export default Test;

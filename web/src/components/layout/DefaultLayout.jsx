@@ -10,7 +10,7 @@ export const DefaultLayout = ({ children }) => {
   // console.log(user);
   const { categories, isError, isLoading } = useGetNoteCategory();
   return (
-    <div className="flex min-h-screen ">
+    <div className="flex min-h-screen max-h-screen">
       {/* <Sidebar /> */}
       <div className="flex flex-col flex-1">
         <Header />
