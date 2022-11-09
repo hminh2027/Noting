@@ -8,7 +8,7 @@ import {
   ModalFooter,
   Button,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { noteAdapter } from "../../../../utils/Adapter/noteAdapter";
 import dynamic from "next/dynamic";
 const NoteEditor = dynamic(import("../../../Editor"), {
@@ -22,7 +22,7 @@ export const NoteEditModal = ({
   isOpen,
   note,
 }) => {
-  const block = new noteAdapter(note);
+  const block = noteAdapter.setNote(note).getContent();
   return (
     <Modal closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -31,7 +31,7 @@ export const NoteEditModal = ({
         <ModalCloseButton />
         <ModalBody pb={6}>
           <NoteEditor
-            data={block.getContent()}
+            data={block}
             onChange={onChange}
             onSave={onSave}
             onReady={onReady}

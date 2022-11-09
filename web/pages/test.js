@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from "react";
-import AvatarUserLogin from "../src/components/UI/atoms/LoginForm/AvatarUserLogin";
-import ButtonLogin from "../src/components/UI/atoms/LoginForm/ButtonLogin";
-import LoginInputGroup from "../src/components/UI/molecules/LoginInput/LoginInputGroup";
-
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+  Button,
+  Input,
+  Avatar,
+} from "@chakra-ui/react";
+import {
+  AccountList,
+  AccountRow,
+  InviteInput,
+} from "../src/components/UI/molecules/NoteShare";
+import { NoteSharePopover } from "../src/components/UI/molecules/NoteShare/NoteSharePopover";
 const Test = ({ noteCategories, notes }) => {
-  return <NoteMainTemplate categories={noteCategories} notes={notes} />;
+  return <NoteSharePopover />;
 };
 
 export default Test;
