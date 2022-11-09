@@ -10,8 +10,8 @@ export class CreateSnapshotDto {
 
   @ApiProperty({
     required: true,
+    nullable: true,
   })
-  @IsNotEmpty()
   content: string;
 
   @ApiProperty({
