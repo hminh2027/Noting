@@ -5,13 +5,11 @@ import { IoReturnDownBackSharp } from "react-icons/io5"
 const ContentModal = ({className}) => {
   return (
     <div className={`${className}`}>
-      <div>
-        <p>Today</p>
-      </div>
+      <Text pb="8px" fontSize='md'>Today</Text>   
 
-      <HStack bg='gray.300'  height={10}>
+      <HStack  bg='gray.300'  height={10}>
          <Icon as={CgFileDocument}/>
-         <Text pr="1550px" pl="10px" fontSize='md'>Getting Started</Text>   
+         <Text pr="1500px" pl="10px" fontSize='md'>Getting Started</Text>   
          <Icon  as={IoReturnDownBackSharp}></Icon>
       </HStack>
     </div>

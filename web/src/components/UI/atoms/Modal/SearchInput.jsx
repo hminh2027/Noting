@@ -8,7 +8,7 @@ import {
 import { AiOutlineSearch } from "react-icons/ai";
 const SearchInput = () => {
   return (
-    <Stack spacing={4}>
+    <Stack pb="2" spacing={4}>
       <InputGroup>
         <InputLeftElement
           pointerEvents="none"

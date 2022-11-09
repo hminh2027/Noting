@@ -16,7 +16,7 @@ import { MdPerson } from "react-icons/md";
 
 const SearchFilter = () => {
   return (
-    <HStack ml="4" spacing='12px'>
+    <HStack pb="2" spacing='12px'>
       <div>
         <Button
           height={6}
@@ -26,7 +26,6 @@ const SearchFilter = () => {
           variant="outline"
           pr="2"
           pl="2"
-          
         >
           Only search titles
         </Button>
