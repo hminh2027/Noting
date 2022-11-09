@@ -1,3 +1,4 @@
+import { SharedNote } from './../shared-note/shared-note.entity';
 import { Category } from 'modules/category/category.entity';
 import { SnapShot } from './../snapshot/snapshot.entity';
 import { Note } from '../note/note.entity';
@@ -49,6 +50,9 @@ export class User {
 
   @OneToMany(() => Comment, (comment) => comment.user, { onDelete: 'CASCADE' })
   comments: Comment[];
+
+  @OneToMany(() => SharedNote, (shared) => shared.user, { onDelete: 'CASCADE' })
+  sharedNotes: SharedNote[];
 
   /* N-N */
   @ManyToMany(() => Category, {
