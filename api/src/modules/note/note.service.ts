@@ -1,4 +1,4 @@
-import { Tag } from './../tag/entities/tag.entity';
+import { Tag } from '../tag/tag.entity';
 import { TagService } from './../tag/tag.service';
 import { Note } from './note.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
@@ -33,8 +33,10 @@ export class NoteService {
     return this.noteRepository.find();
   }
 
-  findOne(id: number) {
-    this.noteRepository.find({ where: { id } });
+  async findOne(id: number) {
+    console.log('hello');
+
+    return await this.noteRepository.findOne({ where: { id } });
   }
 
   update(id: number, updateNoteDto: UpdateNoteDto) {
