@@ -30,13 +30,7 @@ export const NoteCreate = () => {
       tags: [],
     },
   });
-  const countries = [
-    "nigeria",
-    "japan",
-    "india",
-    "united states",
-    "south korea",
-  ];
+  const tags = [];
   function onSubmit(values) {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -52,7 +46,6 @@ export const NoteCreate = () => {
         <FormLabel htmlFor="title">Title</FormLabel>
         <Input
           id="title"
-          placeholder="Title"
           {...register("title", {
             required: "This is required",
             minLength: { value: 4, message: "Minimum length should be 4" },
@@ -101,11 +94,7 @@ export const NoteCreate = () => {
           control={control}
           render={({ field }) => (
             <AutoComplete id="tags" {...field} creatable openOnFocus multiple>
-              <AutoCompleteInput
-                placeholder="Tags..."
-                variant="outline"
-                colorScheme={"blue"}
-              >
+              <AutoCompleteInput variant="outline" colorScheme={"blue"}>
                 {({ tags }) =>
                   tags.map((tag, tid) => (
                     <AutoCompleteTag

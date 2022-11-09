@@ -1,22 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import LoginTemplate from "../src/components/UI/template/Login/LoginTemplate";
-import { signIn } from "next-auth/react";
+import { logIn } from "../src/service/auth";
 const Login = () => {
   const email = useRef();
   const password = useRef();
-  // const enteredEmail = email.current.
+  const loginHanlder = async () => {
+    await logIn(email.current.value, password.current.value);
+  };
   return (
     <LoginTemplate
       emailRef={email}
       passwordRef={password}
-      onLogin={async () => {
-        const res = await signIn("credentials", {
-          redirect: false,
-          password: password.current.value,
-          email: email.current.value,
-        });
-        console.log(res);
-      }}
+      onLogin={loginHanlder}
     ></LoginTemplate>
   );
 };

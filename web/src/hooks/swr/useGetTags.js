@@ -1,8 +1,8 @@
 import useSWR, { mutate } from "swr";
 import noteApi from "../../api/apis/noteApi";
 
-export function useGetNote(id) {
-  const { data, error } = useSWR(`note`, noteApi.getAll);
+export function useGetTag() {
+  const { data, error } = useSWR(`tags`, noteApi.getAll);
 
   return {
     notes: data,
@@ -10,8 +10,8 @@ export function useGetNote(id) {
     isError: error,
   };
 }
-export function useGetNoteById(id) {
-  const { data, error } = useSWR([`note`, id], noteApi.get);
+export function useGetTagById(id) {
+  const { data, error } = useSWR([`tag`, { id }], noteApi.get);
 
   return {
     notes: data,

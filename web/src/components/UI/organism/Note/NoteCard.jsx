@@ -10,7 +10,6 @@ export const NoteCard = ({ note }) => {
       <NoteCardHeader
         createdAt={note.createdAt}
         status={note.status && note.status}
-        // onClick={onOpen}
       />
       <NoteCardBody note={note} onClick={onOpen} className="py-2" />
       <div className="flex gap-4">

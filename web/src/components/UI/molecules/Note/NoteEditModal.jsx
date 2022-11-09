@@ -22,7 +22,6 @@ export const NoteEditModal = ({
   isOpen,
   note,
 }) => {
-  const block = noteAdapter.setNote(note).getContent();
   return (
     <Modal closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -31,7 +30,7 @@ export const NoteEditModal = ({
         <ModalCloseButton />
         <ModalBody pb={6}>
           <NoteEditor
-            data={block}
+            note={note}
             onChange={onChange}
             onSave={onSave}
             onReady={onReady}

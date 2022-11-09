@@ -7,12 +7,13 @@ const NoteDetail = () => {
   const { id } = useRouter().query;
 
   const {
-    notes,
+    note,
     isLoading: isNoteLoading,
     isError: isNoteError,
-  } = useGetNote();
+  } = useGetNoteById(id);
   if (isNoteLoading) return <div></div>;
-  return <NoteDetailTemplate note={notes[0]} />;
+  return <div></div>;
+  // <NoteDetailTemplate note={notes[0]} />;
 };
 
 export default NoteDetail;
