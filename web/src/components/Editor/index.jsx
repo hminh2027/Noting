@@ -1,8 +1,8 @@
 import EditorJs from "@natterstefan/react-editor-js";
 import { EditorTools } from "./EditorTools";
-import { Button } from "@chakra-ui/react";
-import { data as NoteData } from "./data";
-const NoteEditor = ({ data, onChange, onReady }) => {
+
+const NoteEditor = ({ note, onChange, onReady }) => {
+  console.log(note.blocks);
   const editor = null;
 
   // const onReady = () => {
@@ -10,11 +10,10 @@ const NoteEditor = ({ data, onChange, onReady }) => {
   //   console.log("Editor.js is ready to work!");
   // };
 
-  // const onChange = (api, event) => {
-  //   console.log(api, event);
-  //   // https://editorjs.io/configuration#editor-modifications-callback
-  //   console.log("Now I know that Editor's content changed!");
-  // };
+  const onChangeHandler = (api, event) => {
+    // https://editorjs.io/configuration#editor-modifications-callback
+    // console.log("Now I know that Editor's content changed!");
+  };
 
   // const onSave = async () => {
   //   // https://editorjs.io/saving-data
@@ -29,10 +28,10 @@ const NoteEditor = ({ data, onChange, onReady }) => {
     <div>
       {/* docs: https://editorjs.io/configuration */}
       <EditorJs
-        data={data}
+        data={note.blocks}
         holder="custom-editor-container"
         onReady={onReady}
-        onChange={onChange}
+        onChange={onChangeHandler}
         editorInstance={(editorInstance) => {
           editor = editorInstance;
         }}

@@ -1,16 +1,25 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService, LoginPayload, RegisterPayload } from './index';
-import { User, UsersService } from './../user';
+import { User, UserService } from './../user';
 import { ReqUser } from 'common/decorator/user.decorator';
 
 @Controller('auth')
 @ApiTags('authentication')
+@UsePipes(ValidationPipe)
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly userService: UsersService,
+    private readonly userService: UserService,
   ) {}
 
   @Post('login')

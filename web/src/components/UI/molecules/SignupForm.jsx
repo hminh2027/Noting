@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Controller } from "react-hook-form";
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from "react-hook-form";
 import {
   Input,
   Button,
@@ -8,34 +7,27 @@ import {
   FormHelperText,
   FormControl,
   FormErrorMessage,
-  RadioGroup,
+  Flex,
   Stack,
-  Radio,
-  Select,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  Switch,
-  Textarea,
-  PinInput,
-  PinInputField,
-  Checkbox,
-  CheckboxGroup
+  Avatar,
+  Heading,
+  Box,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Link,
 } from "@chakra-ui/react";
-import "./styles.css";
+import { RiAccountCircleFill } from "react-icons/ri";
+import { HiLockClosed } from "react-icons/hi";
 
-export default function SignupForm() {
+export default function App() {
   const {
     register,
+    watch,
     handleSubmit,
     control,
-    formState: { errors }
+    getValues,
+    formState: { errors },
   } = useForm();
   const [submittedVal, setSubmittedVal] = useState();
   const onSubmit = (data) => {
@@ -44,173 +36,135 @@ export default function SignupForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl id="email" isInvalid={errors.email}>
-        <FormLabel>Email address</FormLabel>
-        <Input
-          {...register("email", {
-            required: { value: true, message: "This is required." }
-          })}
-        />
-        <FormHelperText>We'll never share your email.</FormHelperText>
-        <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-      </FormControl>
-
-      <FormControl id="lastName" isInvalid={errors.lastName}>
-        <FormLabel>Last name</FormLabel>
-        <Input
-          {...register("lastName", {
-            required: { value: true, message: "This is required." }
-          })}
-        />
-        <FormHelperText>We'll never share your last name.</FormHelperText>
-        <FormErrorMessage>{errors.lastName?.message}</FormErrorMessage>
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>Options</FormLabel>
-        <Select {...register("options")} placeholder="Select option">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </Select>
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>Number</FormLabel>
-
-        <Controller
-          name="number"
-          control={control}
-          render={({ field }) => (
-            <NumberInput {...field}>
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          )}
-        />
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>Slider</FormLabel>
-
-        <Controller
-          name="slider"
-          control={control}
-          render={({ field }) => (
-            <Slider {...field} aria-label="slider-ex-1" defaultValue={30}>
-              <SliderTrack>
-                <SliderFilledTrack />
-              </SliderTrack>
-              <SliderThumb />
-            </Slider>
-          )}
-        />
-      </FormControl>
-
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="email-alerts" mb="0">
-          Enable email alerts?
-        </FormLabel>
-        <Controller
-          name="switch"
-          control={control}
-          render={({ field }) => (
-            <Switch
-              id="email-alerts"
-              {...field}
-              onChange={(e) => field.onChange(e.target.checked)}
-            />
-          )}
-        />
-      </FormControl>
-
-      <FormControl id="position" isInvalid={errors.position}>
-        <FormLabel>Position</FormLabel>
-        <Controller
-          name="position"
-          control={control}
-          render={({ field }) => (
-            <RadioGroup {...field}>
-              <Stack direction="row">
-                <Radio value="1">First</Radio>
-                <Radio value="2">Second</Radio>
-                <Radio value="3">Third</Radio>
-              </Stack>
-            </RadioGroup>
-          )}
-          rules={{
-            required: { value: true, message: "This is required." }
-          }}
-        />
-        <FormErrorMessage>{errors.position?.message}</FormErrorMessage>
-      </FormControl>
-
-      <FormControl>
-        <Controller
-          name="pin"
-          control={control}
-          render={({ field: { ref, ...rest } }) => (
-            <PinInput otp {...rest}>
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
-            </PinInput>
-          )}
-          rules={{
-            required: { value: true, message: "This is required." }
-          }}
-        />
-      </FormControl>
-
-      <FormControl>
-        <Controller
-          name="checkbox"
-          control={control}
-          render={({ field }) => (
-            <Checkbox
-              {...field}
-              onChange={(e) => field.onChange(e.target.checked)}
+    <Flex
+      flexDirection="column"
+      width="100wh"
+      height="100vh"
+      backgroundColor="gray.200"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Stack
+        flexDir="column"
+        mb="2"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Avatar bg="teal.500" />
+        <Heading color="teal.400">Welcome</Heading>
+        <Box minW={{ base: "90%", md: "468px" }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack
+              spacing={4}
+              p="1rem"
+              backgroundColor="whiteAlpha.900"
+              boxShadow="md"
             >
-              Checkbox
-            </Checkbox>
-          )}
-        />
-      </FormControl>
+              <FormControl id="firstName" isInvalid={errors.firstName}>
+                <InputGroup>
+                  <Input type="text" placeholder="First Name"
+                   {...register("firstName", {
+                     required: { value: true, message: "This is required." },
+                   })} />
+                </InputGroup>
+                <FormErrorMessage>{errors.firstName?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl id="lastName" isInvalid={errors.lastName}>
+                <InputGroup >
+                  <Input type="text" placeholder="Last Name"
+                   {...register("lastName", {
+                     required: { value: true, message: "This is required." },
+                   })} />
+                </InputGroup>
+                <FormErrorMessage>{errors.lastName?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl id="userName" isInvalid={errors.userName}>
+                <InputGroup>
+                  <Input
+                    type="email"
+                    placeholder="email address"
+                    {...register("userName", {
+                      required: { value: true, message: "This is required." },
+                    })}
+                  />
+                </InputGroup>
+                <FormErrorMessage>{errors.userName?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl id="password" isInvalid={errors.password}>
+                <InputGroup>
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    {...register("password", {
+                      required: { value: true, message: "This is required." },
+                    })}
+                  />
+                </InputGroup>
+                <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl id="password_confirm" isInvalid={errors.password_confirm} >
+                <InputGroup>
+                  <Input type="password" placeholder="Confirm Password"
+                  {...register("password_confirm", {
+                     required: { value: true, message: "This is required." },
+                   })}
+                    />
+                     <FormErrorMessage>{errors.password_confirm?.message}</FormErrorMessage>
+                </InputGroup>
+              </FormControl>
+              <Button
+                borderRadius={0}
+                type="submit"
+                variant="solid"
+                colorScheme="teal"
+                width="full"
+              >
+                Signup
+              </Button>
+            </Stack>
+            {submittedVal && (
+              <div>
+                Submitted Data:
+                <br />
+                {JSON.stringify(submittedVal)}
+              </div>
+            )}
+          </form>
+        </Box>
+      </Stack>
+    </Flex>
+    //  <form onSubmit={handleSubmit(onSubmit)}>
+    //    <FormControl id="userName" isInvalid={errors.userName}>
+    //      <FormLabel>Email address</FormLabel>
+    //      <Input
+    //        {...register("userName", {
+    //          required: { value: true, message: "This is required." }
+    //        })}
+    //      />
 
-      <FormControl>
-        <Controller
-          name="checkboxs"
-          control={control}
-          render={({ field: { ref, ...rest } }) => (
-            <CheckboxGroup {...rest}>
-              <Checkbox value="first">first</Checkbox>
-              <Checkbox value="second">second</Checkbox>
-              <Checkbox value="last">last</Checkbox>
-            </CheckboxGroup>
-          )}
-        />
-      </FormControl>
+    //      <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+    //    </FormControl>
 
-      <FormControl>
-        <Textarea
-          {...register("textarea")}
-          placeholder="Here is a sample placeholder"
-        />
-      </FormControl>
+    //    <FormControl id="password" isInvalid={errors.password}>
+    //      <FormLabel>Last name</FormLabel>
+    //      <Input
+    //       type="password"
+    //        {...register("password", {
+    //          required: { value: true, message: "This is required." }
+    //        })}
+    //      />
 
-      <Button type="submit">Submit</Button>
-      {submittedVal && (
-        <div>
-          Submitted Data:
-          <br />
-          {JSON.stringify(submittedVal)}
-        </div>
-      )}
-    </form>
+    //      <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
+    //    </FormControl>
+
+    //    <Button type="submit">Submit</Button>
+    //    {submittedVal && (
+    //      <div>
+    //        Submitted Data:
+    //        <br />
+    //        {JSON.stringify(submittedVal)}
+    //      </div>
+    //    )}
+    //  </form>
   );
 }

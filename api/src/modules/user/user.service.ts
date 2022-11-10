@@ -5,18 +5,18 @@ import { Repository } from 'typeorm';
 import { User, UserFillableFields } from './user.entity';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
 
   async get(id: number) {
-    return this.userRepository.findOne({ id });
+    return this.userRepository.findOne({ where: { id } });
   }
 
   async getByEmail(email: string) {
-    return await this.userRepository.findOne({ email });
+    return await this.userRepository.findOne({ where: { email } });
   }
 
   async create(payload: UserFillableFields) {
@@ -30,4 +30,17 @@ export class UsersService {
 
     return await this.userRepository.save(payload);
   }
+<<<<<<< HEAD
+=======
+
+  async getCategoriesByUserId(userId: number) {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.categories', 'category')
+      .leftJoinAndSelect('category.notes', 'note')
+      .where('user.id = :userId', { userId })
+      .getOne();
+    // .getMany();
+  }
+>>>>>>> main
 }

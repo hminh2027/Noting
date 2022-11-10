@@ -1,26 +1,52 @@
-import { Injectable } from '@nestjs/common';
+import { Attachment } from './attachment.entity';
+import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { CreateAttachmentDto } from './dto/create-attachment.dto';
 import { UpdateAttachmentDto } from './dto/update-attachment.dto';
+import * as fs from 'fs';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AttachmentService {
-  create(createAttachmentDto: CreateAttachmentDto) {
-    return 'This action adds a new attachment';
+  constructor(
+    @InjectRepository(Attachment)
+    private readonly attachmentRepository: Repository<Attachment>,
+  ) {}
+
+  async create(createAttachmentDto: CreateAttachmentDto) {
+    const fileName = await this.saveBase64ToFile(createAttachmentDto.image);
+    if (!fileName)
+      throw new NotAcceptableException('Can not convert base64 to image');
+
+    const newAtt = await this.attachmentRepository.create({
+      fileName,
+      noteId: createAttachmentDto.noteId,
+    });
+
+    return this.attachmentRepository.save(newAtt);
   }
 
-  findAll() {
-    return `This action returns all attachment`;
+  remove(fileName: string) {
+    return this.attachmentRepository.delete(fileName);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} attachment`;
-  }
+  async saveBase64ToFile(base64string: String) {
+    const base64Data = base64string.replace(/^data:image\/png;base64,/, '');
+    const imageName = `${+new Date()}.png`;
 
-  update(id: number, updateAttachmentDto: UpdateAttachmentDto) {
-    return `This action updates a #${id} attachment`;
-  }
+    fs.mkdir('public/images/', { recursive: true }, (err) => {
+      if (err) throw err;
+    });
 
-  remove(id: number) {
-    return `This action removes a #${id} attachment`;
+    fs.writeFile(
+      `public/images/${imageName}`,
+      base64Data,
+      'base64',
+      function (err) {
+        return null;
+      },
+    );
+
+    return imageName;
   }
 }

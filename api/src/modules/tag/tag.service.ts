@@ -1,4 +1,4 @@
-import { Tag } from './entities/tag.entity';
+import { Tag } from './tag.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTagDto } from './dto/create-tag.dto';
@@ -20,8 +20,8 @@ export class TagService {
     return this.userRepository.find();
   }
 
-  async findOne(id: number) {
-    return await this.userRepository.find({ where: { id } });
+  async findOneByName(name: string) {
+    return await this.userRepository.find({ where: { name } });
   }
 
   update(id: number, updateTagDto: UpdateTagDto) {

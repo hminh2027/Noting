@@ -1,17 +1,21 @@
+import { Button, useDisclosure } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { CreateCategoryModal } from ".";
 import { NoteCategory } from "../../molecules/Note";
 
 export const NoteSidebar = ({ categories, className }) => {
-  const [category, setCategory] = useState([]);
-  useEffect(() => {
-    setCategory(categories);
-  }, [categories]);
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <div className={`flex flex-col ${className}`}>
-      {category?.map((item) => (
-        <NoteCategory title={item.title} items={item.items} />
-      ))}
+    <div className={`flex flex-col justify-between ${className}`}>
+      <div className="flex flex-col">
+        {categories?.map((category, index) => (
+          <NoteCategory category={category} key={index} />
+        ))}
+      </div>
+      <Button className="py-4" colorScheme={"blue"} onClick={onOpen}>
+        Add Category
+      </Button>
+      <CreateCategoryModal isOpen={isOpen} />
     </div>
   );
 };

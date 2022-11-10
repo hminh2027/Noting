@@ -1,9 +1,20 @@
-import { Note } from './../note/entities/note.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { SharedNote } from './../shared-note/shared-note.entity';
+import { Category } from 'modules/category/category.entity';
+import { SnapShot } from './../snapshot/snapshot.entity';
+import { Note } from '../note/note.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { PasswordTransformer } from './password.transformer';
+import { Comment } from 'modules/comment/comment.entity';
 
 @Entity({
-  name: 'users',
+  name: 'user',
 })
 export class User {
   @PrimaryGeneratedColumn()
@@ -31,8 +42,17 @@ export class User {
   }
 
   /* 1-N */
-  @OneToMany(() => Note, (note) => note.user, { cascade: true })
+  @OneToMany(() => Note, (note) => note.user, { onDelete: 'CASCADE' })
   notes: Note[];
+
+  @OneToMany(() => SnapShot, (snap) => snap.user, { onDelete: 'CASCADE' })
+  snapshots: SnapShot[];
+
+  @OneToMany(() => Comment, (comment) => comment.user, { onDelete: 'CASCADE' })
+  comments: Comment[];
+
+  @OneToMany(() => SharedNote, (shared) => shared.user, { onDelete: 'CASCADE' })
+  sharedNotes: SharedNote[];
 }
 
 export class UserFillableFields {

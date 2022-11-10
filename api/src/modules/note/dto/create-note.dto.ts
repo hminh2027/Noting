@@ -10,8 +10,8 @@ export class CreateNoteDto {
 
   @ApiProperty({
     required: true,
+    nullable: true,
   })
-  @IsNotEmpty()
   content: string;
 
   @ApiProperty({
@@ -31,18 +31,15 @@ export class CreateNoteDto {
   isPublic: string;
 
   @ApiProperty({
-    required: true,
-    type: Number,
-  })
-  @IsInt()
-  @IsNotEmpty()
-  userId: number;
-
-  @ApiProperty({
-    required: true,
     type: [],
   })
   @IsArray()
+  tagsName: string[];
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
   @IsNotEmpty()
-  tagsId: number[];
+  categoryId: number;
 }
