@@ -8,8 +8,8 @@ export const NoteSidebar = ({ categories, className }) => {
   return (
     <div className={`flex flex-col justify-between ${className}`}>
       <div className="flex flex-col">
-        {categories?.map((item, index) => (
-          <NoteCategory name={item.name} items={item.items} key={index} />
+        {categories?.map((category, index) => (
+          <NoteCategory category={category} key={index} />
         ))}
       </div>
       <Button className="py-4" colorScheme={"blue"} onClick={onOpen}>

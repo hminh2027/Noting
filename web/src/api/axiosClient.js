@@ -20,7 +20,6 @@ export const setToken = (token) => {
 
 axiosClient.interceptors.request.use(async (config) => {
   // Handle token here ...
-  console.log({ config });
   return config;
 });
 

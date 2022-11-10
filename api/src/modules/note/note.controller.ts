@@ -37,12 +37,14 @@ export class NoteController {
 
   @Get()
   findAll(@ReqUser() user) {
-    return this.noteService.getManyByUserId(user.id);
+    return this.noteService.getManyByUserId(1);
+    // return this.noteService.getManyByUserId(user.id);
   }
 
   @Get(':id')
   findOne(@Param('id') id: number, @ReqUser() user) {
-    return this.noteService.getOneById(+id, user.id);
+    return this.noteService.getOneById(+id, 1);
+    // return this.noteService.getOneById(+id, user.id);
   }
 
   @Patch(':id')

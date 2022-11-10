@@ -11,9 +11,14 @@ import {
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 import { CreateNoteModal } from "../../organism/Note";
-export const NoteCategory = ({ name, items, className }) => {
+import { useRouter } from "next/router";
+export const NoteCategory = ({ category, className }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const router = useRouter();
+  const { name, id: categoryId, notes } = category;
+  const NoteItemClickHandler = (id) => {
+    router.push(`/note/${id}`);
+  };
   return (
     <Accordion defaultIndex={[0]} allowMultiple className={`${className}`}>
       <AccordionItem>
@@ -34,23 +39,22 @@ export const NoteCategory = ({ name, items, className }) => {
         </AccordionButton>
         <AccordionPanel padding={"0"}>
           <div className="flex flex-col">
-            {items?.map((item, index) => (
+            {notes?.map((note) => (
               <Button
                 variant="ghost"
                 colorScheme="teal"
-                className="justify-start"
-                key={index}
+                key={note.id}
+                className="text-left"
+                onClick={() => NoteItemClickHandler(note.id)}
               >
-                {item.name}
+                {note.title}
               </Button>
             ))}
             <Button onClick={onOpen}>Add Note</Button>
             <CreateNoteModal
               isOpen={isOpen}
               onClose={onClose}
-              onSubmit={() => {
-                console.log("Created");
-              }}
+              categoryId={categoryId}
             />
           </div>
         </AccordionPanel>

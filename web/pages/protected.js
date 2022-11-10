@@ -1,22 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import LoginTemplate from "../src/components/UI/template/Login/LoginTemplate";
-import {
-  signIn,
-  signOut,
-  useSession,
-  getSession,
-  getCsrfToken,
-} from "next-auth/react";
+import React, { useEffect } from "react";
+import { logOut } from "../src/service/auth";
+
 const Protected = () => {
-  return (
-    <div
-      onClick={async () => {
-        await signOut({ callbackUrl: "/login", redirect: true });
-      }}
-    >
-      Hello
-    </div>
-  );
+  useEffect(async () => {
+    await logOut();
+  }, []);
+
+  return <div>Loging out ...</div>;
 };
 
 export default Protected;

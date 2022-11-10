@@ -12,6 +12,7 @@ import {
   FormControl,
   FormLabel,
 } from "@chakra-ui/react";
+import { NoteCreate } from "../../molecules/NoteCreate/NoteCreate";
 export const CreateNoteModal = ({ isOpen, onSubmit, onClose }) => {
   return (
     <>
@@ -21,18 +22,7 @@ export const CreateNoteModal = ({ isOpen, onSubmit, onClose }) => {
           <ModalHeader>Create Note</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form>
-              <FormControl isRequired>
-                <FormLabel>Note title</FormLabel>
-                <Input placeholder="Title" />
-              </FormControl>
-              <Button variant="solid" colorScheme="blue" onClick={onSubmit}>
-                Create
-              </Button>
-              <Button mr={3} onClick={onClose}>
-                Close
-              </Button>
-            </form>
+            <NoteCreate />
           </ModalBody>
 
           <ModalFooter></ModalFooter>

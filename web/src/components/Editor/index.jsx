@@ -2,7 +2,7 @@ import EditorJs from "@natterstefan/react-editor-js";
 import { EditorTools } from "./EditorTools";
 
 const NoteEditor = ({ note, onChange, onReady }) => {
-  console.log(note);
+  console.log(note.blocks);
   const editor = null;
 
   // const onReady = () => {
@@ -11,8 +11,6 @@ const NoteEditor = ({ note, onChange, onReady }) => {
   // };
 
   const onChangeHandler = (api, event) => {
-    console.log(editor);
-    // console.log(api, event);
     // https://editorjs.io/configuration#editor-modifications-callback
     // console.log("Now I know that Editor's content changed!");
   };
@@ -30,7 +28,7 @@ const NoteEditor = ({ note, onChange, onReady }) => {
     <div>
       {/* docs: https://editorjs.io/configuration */}
       <EditorJs
-        data={{ blocks: note.blocks }}
+        data={note.blocks}
         holder="custom-editor-container"
         onReady={onReady}
         onChange={onChangeHandler}

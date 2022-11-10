@@ -30,4 +30,17 @@ export class UserService {
 
     return await this.userRepository.save(payload);
   }
+<<<<<<< HEAD
+=======
+
+  async getCategoriesByUserId(userId: number) {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.categories', 'category')
+      .leftJoinAndSelect('category.notes', 'note')
+      .where('user.id = :userId', { userId })
+      .getOne();
+    // .getMany();
+  }
+>>>>>>> main
 }
