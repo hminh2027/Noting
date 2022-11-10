@@ -4,10 +4,10 @@ import { parse, stringify } from "qs";
 
 // Please have a look at here `https://github.com/axios/axios#request-config` for the full list of configs
 
-const axiosClient = axios.create({
+export const axiosClient = axios.create({
   baseURL: process.env.BASE_API_URL,
   headers: {
-    "content-type": "application/json",
+    "Content-Type": "application/json",
   },
   paramsSerializer: {
     encode: parse,
@@ -35,5 +35,3 @@ axiosClient.interceptors.response.use(
     throw error;
   }
 );
-
-export default axiosClient;

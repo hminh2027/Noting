@@ -13,7 +13,7 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { NoteCreate } from "../../molecules/NoteCreate/NoteCreate";
-export const CreateNoteModal = ({ isOpen, onSubmit, onClose }) => {
+export const CreateNoteModal = ({ isOpen, onSubmit, onClose, categoryId }) => {
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -22,7 +22,7 @@ export const CreateNoteModal = ({ isOpen, onSubmit, onClose }) => {
           <ModalHeader>Create Note</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <NoteCreate />
+            <NoteCreate categoryId={categoryId} />
           </ModalBody>
 
           <ModalFooter></ModalFooter>

@@ -6,7 +6,6 @@ const NoteEditor = dynamic(import("../../../Editor"), {
   ssr: false,
 });
 export const NoteDetailTemplate = ({ note }) => {
-  console.log(note);
   return (
     <div className="flex flex-col gap-4">
       <Header note={note} />
