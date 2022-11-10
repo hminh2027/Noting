@@ -34,6 +34,7 @@ export class CategoryService {
     return await this.categoryRepository
       .createQueryBuilder('category')
       .leftJoinAndSelect('category.users', 'user')
+      .leftJoinAndSelect('category.notes', 'note')
       .where('user.id = :userId', { userId })
       .getMany();
   }
