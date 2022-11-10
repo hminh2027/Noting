@@ -2,7 +2,7 @@ import useSWR, { mutate } from "swr";
 import { noteApi } from "../../api/apis";
 
 export function useGetNote() {
-  const { data, error } = useSWR(`note`, noteApi.getAll);
+  const { data, error } = useSWR(`notes`, noteApi.getAll);
 
   return {
     notes: data,

@@ -15,7 +15,7 @@ export const NoteSidebar = ({ categories, className }) => {
       <Button className="py-4" colorScheme={"blue"} onClick={onOpen}>
         Add Category
       </Button>
-      <CreateCategoryModal isOpen={isOpen} />
+      <CreateCategoryModal isOpen={isOpen} onClose={onClose} />
     </div>
   );
 };

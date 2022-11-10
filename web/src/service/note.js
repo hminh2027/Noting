@@ -7,6 +7,5 @@ export const createNote = async ({
   tags,
   categoryId,
 }) => {
-  console.log(title, isTemplate, isPublic, tags, categoryId);
   return await noteApi.post({ title, isTemplate, isPublic, tags, categoryId });
 };

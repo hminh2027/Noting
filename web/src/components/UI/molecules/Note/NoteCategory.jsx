@@ -8,6 +8,7 @@ import {
   Box,
   AccordionPanel,
   useDisclosure,
+  Text,
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 import { CreateNoteModal } from "../../organism/Note";
@@ -47,7 +48,7 @@ export const NoteCategory = ({ category, className }) => {
                 className="text-left"
                 onClick={() => NoteItemClickHandler(note.id)}
               >
-                {note.title}
+                <Text fontSize={"sm"}>{note.title}</Text>
               </Button>
             ))}
             <Button onClick={onOpen}>Add Note</Button>

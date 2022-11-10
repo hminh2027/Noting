@@ -18,7 +18,9 @@ import {
 } from "@choc-ui/chakra-autocomplete";
 import { useGetTag } from "../../../../hooks/swr";
 import { createNote } from "../../../../service/note";
+import { useSWRConfig } from "swr";
 export const NoteCreate = ({ categoryId }) => {
+  const { mutate } = useSWRConfig();
   const {
     register,
     handleSubmit,
@@ -30,11 +32,15 @@ export const NoteCreate = ({ categoryId }) => {
       isTemplate: false,
       isPublic: false,
       tags: [],
+      categoryId,
     },
   });
   const { tags } = useGetTag();
   function onSubmit(values) {
+    console.log(values);
     createNote(values);
+    mutate("notes");
+    mutate("tags");
   }
 
   return (
@@ -94,7 +100,6 @@ export const NoteCreate = ({ categoryId }) => {
               <AutoCompleteInput variant="outline">
                 {({ tags }) =>
                   tags.map((tag, tid) => {
-                    console.log(tag);
                     return (
                       <AutoCompleteTag
                         key={tid}
