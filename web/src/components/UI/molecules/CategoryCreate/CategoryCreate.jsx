@@ -12,7 +12,6 @@ import { useSWRConfig } from "swr";
 
 export const CategoryCreate = () => {
   const { mutate } = useSWRConfig();
-
   const {
     register,
     handleSubmit,
@@ -23,28 +22,30 @@ export const CategoryCreate = () => {
       name: "",
     },
   });
-  const onSubmit = (values) => {
-    createCategory(values);
+  const onSubmit = async (values) => {
+    await createCategory(values);
     mutate("category-all");
   };
   return (
-    <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
-      <FormControl isInvalid={errors.name} isRequired>
-        <FormLabel htmlFor="name">Category name</FormLabel>
-        <Input
-          id="name"
-          {...register("name", {
-            required: "This is required",
-            minLength: { value: 4, message: "Minimum length should be 4" },
-          })}
-        />
-        <FormErrorMessage>
-          {errors.name && errors.name.message}
-        </FormErrorMessage>
-      </FormControl>
-      <Button colorScheme="teal" type="submit">
-        Submit
-      </Button>
-    </form>
+    <>
+      <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+        <FormControl isInvalid={errors.name} isRequired>
+          <FormLabel htmlFor="name">Category name</FormLabel>
+          <Input
+            id="name"
+            {...register("name", {
+              required: "This is required",
+              minLength: { value: 4, message: "Minimum length should be 4" },
+            })}
+          />
+          <FormErrorMessage>
+            {errors.name && errors.name.message}
+          </FormErrorMessage>
+        </FormControl>
+        <Button colorScheme="teal" type="submit">
+          Submit
+        </Button>
+      </form>
+    </>
   );
 };

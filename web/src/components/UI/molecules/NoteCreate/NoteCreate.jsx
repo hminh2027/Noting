@@ -31,13 +31,12 @@ export const NoteCreate = ({ categoryId }) => {
       title: "",
       isTemplate: false,
       isPublic: false,
-      tags: [],
+      tagsName: [],
       categoryId,
     },
   });
   const { tags } = useGetTag();
   function onSubmit(values) {
-    console.log(values);
     createNote(values);
     mutate("notes");
     mutate("tags");
@@ -91,12 +90,18 @@ export const NoteCreate = ({ categoryId }) => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel htmlFor="tags">Tags</FormLabel>
+        <FormLabel htmlFor="tagsName">Tags</FormLabel>
         <Controller
-          name="tags"
+          name="tagsName"
           control={control}
           render={({ field }) => (
-            <AutoComplete id="tags" {...field} creatable openOnFocus multiple>
+            <AutoComplete
+              id="tagsName"
+              {...field}
+              creatable
+              openOnFocus
+              multiple
+            >
               <AutoCompleteInput variant="outline">
                 {({ tags }) =>
                   tags.map((tag, tid) => {

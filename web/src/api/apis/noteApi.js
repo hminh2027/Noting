@@ -1,7 +1,7 @@
 import { basePath } from "../../../next.config";
 import { noteAdapter } from "../../utils/Adapter";
 
-const { default: axiosClient } = require("../axiosClient");
+import { axiosClient } from "../axiosClient";
 
 export const noteApi = {
   getAll: async (params) => {

@@ -1,6 +1,6 @@
 import { basePath } from "../../../next.config";
 
-const { default: axiosClient } = require("../axiosClient");
+import { axiosClient } from "../axiosClient";
 
 export const snapshotApi = {
   getAll: async (params) => {

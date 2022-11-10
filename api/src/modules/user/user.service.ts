@@ -30,8 +30,6 @@ export class UserService {
 
     return await this.userRepository.save(payload);
   }
-<<<<<<< HEAD
-=======
 
   async getCategoriesByUserId(userId: number) {
     return this.userRepository
@@ -42,5 +40,4 @@ export class UserService {
       .getOne();
     // .getMany();
   }
->>>>>>> main
 }

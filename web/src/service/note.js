@@ -4,8 +4,14 @@ export const createNote = async ({
   title,
   isTemplate,
   isPublic,
-  tags,
+  tagsName,
   categoryId,
 }) => {
-  return await noteApi.post({ title, isTemplate, isPublic, tags, categoryId });
+  return await noteApi.post({
+    title,
+    isTemplate,
+    isPublic,
+    tagsName,
+    categoryId,
+  });
 };
