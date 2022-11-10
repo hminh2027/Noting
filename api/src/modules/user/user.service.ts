@@ -21,7 +21,6 @@ export class UserService {
 
   async create(payload: UserFillableFields) {
     const user = await this.getByEmail(payload.email);
-    console.log('called');
 
     if (user) {
       throw new NotAcceptableException(
@@ -30,14 +29,5 @@ export class UserService {
     }
 
     return await this.userRepository.save(payload);
-  }
-
-  async getCategoriesByUserId(userId: number) {
-    return this.userRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.categories', 'category')
-      .leftJoinAndSelect('category.notes', 'note')
-      .where('user.id = :userId', { userId })
-      .getMany();
   }
 }

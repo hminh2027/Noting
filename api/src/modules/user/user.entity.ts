@@ -53,13 +53,6 @@ export class User {
 
   @OneToMany(() => SharedNote, (shared) => shared.user, { onDelete: 'CASCADE' })
   sharedNotes: SharedNote[];
-
-  /* N-N */
-  @ManyToMany(() => Category, {
-    onDelete: 'CASCADE',
-  })
-  @JoinTable()
-  categories: Category[];
 }
 
 export class UserFillableFields {

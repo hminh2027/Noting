@@ -8,15 +8,20 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { SharedNoteService } from './shared-note.service';
 import { CreateSharedNoteDto } from './dto/create-shared-note.dto';
 import { UpdateSharedNoteDto } from './dto/update-shared-note.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ReqUser } from 'common/decorator/user.decorator';
+import { JwtAuthGuard } from 'common/guards/jwt.guard';
 
 @Controller('shared-note')
 @ApiTags('shared note')
 @UsePipes(ValidationPipe)
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 export class SharedNoteController {
   constructor(private readonly sharedNoteService: SharedNoteService) {}
 
@@ -27,20 +32,12 @@ export class SharedNoteController {
 
   @Get()
   findAll() {
-    return this.sharedNoteService.findAll();
+    return this.sharedNoteService.getManyByUserId(1);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.sharedNoteService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateSharedNoteDto: UpdateSharedNoteDto,
-  ) {
-    return this.sharedNoteService.update(+id, updateSharedNoteDto);
+  @Patch()
+  update(@ReqUser() user, @Body() updateSharedNoteDto: UpdateSharedNoteDto) {
+    return this.sharedNoteService.update(user.id, updateSharedNoteDto);
   }
 
   @Delete(':id')

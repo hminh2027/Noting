@@ -1,30 +1,39 @@
+import { NoteService } from './../note/note.service';
 import { SharedNote } from './shared-note.entity';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateSharedNoteDto } from './dto/create-shared-note.dto';
 import { UpdateSharedNoteDto } from './dto/update-shared-note.dto';
 import { Repository } from 'typeorm';
+import { Permission } from './permission.enum';
 
 @Injectable()
 export class SharedNoteService {
   constructor(
     @InjectRepository(SharedNote)
-    private readonly snapShotRepository: Repository<SharedNote>,
+    private readonly sharedNoteRepository: Repository<SharedNote>,
+    private readonly noteService: NoteService,
   ) {}
-  create(createSharedNoteDto: CreateSharedNoteDto) {
-    return 'This action adds a new sharedNote';
+  async create(createSharedNoteDto: CreateSharedNoteDto) {
+    if (!Object.values(Permission).includes(createSharedNoteDto.permission))
+      throw new BadRequestException();
+
+    const newNote = await this.sharedNoteRepository.create(createSharedNoteDto);
+    return await this.sharedNoteRepository.save(newNote);
   }
 
-  findAll() {
-    return `This action returns all sharedNote`;
+  getManyByUserId(userId: number) {
+    return this.sharedNoteRepository.find({
+      where: { userId },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} sharedNote`;
-  }
+  update(userId: number, updateSharedNoteDto: UpdateSharedNoteDto) {
+    console.log(updateSharedNoteDto);
+    this.noteService.getOneById(updateSharedNoteDto.noteId, userId);
 
-  update(id: number, updateSharedNoteDto: UpdateSharedNoteDto) {
-    return `This action updates a #${id} sharedNote`;
+    // this.sharedNoteRepository.findOne({ where: { user } });
+    // return this.sharedNoteRepository.update(id, updateSharedNoteDto);
   }
 
   remove(id: number) {

@@ -1,3 +1,4 @@
+import { SharedNoteModule } from './modules/shared-note/shared-note.module';
 import { SnapshotModule } from './modules/snapshot/snapshot.module';
 import { AttachmentModule } from './modules/attachment/attachment.module';
 import { NoteModule } from './modules/note/note.module';
@@ -19,6 +20,7 @@ import { CommentModule } from 'modules/comment/comment.module';
     CategoryModule,
     CommentModule,
     SnapshotModule,
+    SharedNoteModule,
     AttachmentModule,
   ],
 })

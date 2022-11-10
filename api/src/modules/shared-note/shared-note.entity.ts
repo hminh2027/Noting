@@ -1,22 +1,15 @@
 import { Note } from './../note/note.entity';
-import { SnapShot } from './../snapshot/snapshot.entity';
-import { Attachment } from '../attachment/attachment.entity';
-import { Category } from 'modules/category/category.entity';
-import { Tag } from 'modules/tag/tag.entity';
 import { User } from 'modules/user';
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-  ManyToMany,
-  OneToMany,
   PrimaryColumn,
 } from 'typeorm';
-import { Comment } from 'modules/comment/comment.entity';
+import { Permission } from './permission.enum';
 
 @Entity({
   name: 'shared_note',
@@ -28,11 +21,13 @@ export class SharedNote {
   @PrimaryColumn()
   noteId: number;
 
-  @Column({ type: Boolean, default: false })
-  isEditable: Boolean;
+  @Column({ type: 'enum', enum: Permission, default: Permission.VIEWABLE })
+  permission: Permission;
+  // @Column({ type: Boolean, default: false })
+  // isEditable: Boolean;
 
-  @Column({ type: Boolean, default: false })
-  isCommentable: Boolean;
+  // @Column({ type: Boolean, default: false })
+  // isCommentable: Boolean;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -49,7 +44,7 @@ export class SharedNote {
   user: User;
 
   @ManyToOne(() => Note, (note) => note.sharedNotes, {
-    eager: true,
+    // eager: true,
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'noteId' })

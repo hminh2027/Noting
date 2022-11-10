@@ -84,6 +84,7 @@ export class Note {
 
   @OneToMany(() => SharedNote, (shared) => shared.note, {
     onDelete: 'CASCADE',
+    eager: true,
   })
   sharedNotes: SharedNote[];
 
