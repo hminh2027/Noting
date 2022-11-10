@@ -1,5 +1,5 @@
 import { basePath } from "../../../next.config";
-import { noteAdapter } from "../../utils/Adapter/noteAdapter";
+import { noteAdapter } from "../../utils/Adapter";
 
 const { default: axiosClient } = require("../axiosClient");
 
@@ -12,7 +12,7 @@ export const noteApi = {
       noteAdapter.setNote(note).convertContentToBlock().getNote()
     );
   },
-  get: async (id) => {
+  get: async ({ id }) => {
     const url = `/note/${id}`;
     const note = await axiosClient.get(url);
     return noteAdapter.setNote(note).convertContentToBlock().getNote();

@@ -1,20 +1,22 @@
 import useSWR, { mutate } from "swr";
-import noteApi from "../../api/apis/noteApi";
+import { tagApi } from "../../api/apis";
+// import tagApi from "../../api/apis/tagApi";
 
 export function useGetTag() {
-  const { data, error } = useSWR(`tags`, noteApi.getAll);
+  const { data, error } = useSWR(`tags`, tagApi.getAll);
+  console.log("Heelo");
 
   return {
-    notes: data,
+    tags: data,
     isLoading: !error && !data,
     isError: error,
   };
 }
 export function useGetTagById(id) {
-  const { data, error } = useSWR([`tag`, { id }], noteApi.get);
+  const { data, error } = useSWR([`tag`, { id }], tagApi.get);
 
   return {
-    notes: data,
+    tags: data,
     isLoading: !error && !data,
     isError: error,
   };

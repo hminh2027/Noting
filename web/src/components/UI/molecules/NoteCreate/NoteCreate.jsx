@@ -16,7 +16,9 @@ import {
   AutoCompleteTag,
   AutoCompleteCreatable,
 } from "@choc-ui/chakra-autocomplete";
-export const NoteCreate = () => {
+import { useGetTag } from "../../../../hooks/swr";
+import { createNote } from "../../../../service/note";
+export const NoteCreate = ({ categoryId }) => {
   const {
     register,
     handleSubmit,
@@ -30,14 +32,9 @@ export const NoteCreate = () => {
       tags: [],
     },
   });
-  const tags = [];
+  const { tags } = useGetTag();
   function onSubmit(values) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        resolve();
-      }, 100);
-    });
+    createNote(values);
   }
 
   return (
@@ -94,29 +91,32 @@ export const NoteCreate = () => {
           control={control}
           render={({ field }) => (
             <AutoComplete id="tags" {...field} creatable openOnFocus multiple>
-              <AutoCompleteInput variant="outline" colorScheme={"blue"}>
+              <AutoCompleteInput variant="outline">
                 {({ tags }) =>
-                  tags.map((tag, tid) => (
-                    <AutoCompleteTag
-                      key={tid}
-                      label={tag.label}
-                      onRemove={tag.onRemove}
-                    />
-                  ))
+                  tags.map((tag, tid) => {
+                    console.log(tag);
+                    return (
+                      <AutoCompleteTag
+                        key={tid}
+                        label={tag.label}
+                        onRemove={tag.onRemove}
+                      />
+                    );
+                  })
                 }
               </AutoCompleteInput>
               <AutoCompleteList>
-                {countries.map((country, cid, base) => {
+                {tags?.map((tag, cid, base) => {
                   if (cid !== base.length) {
                     return (
                       <AutoCompleteItem
                         key={`option-${cid}`}
-                        value={country}
+                        value={tag.name}
                         textTransform="capitalize"
                         _selected={{ bg: "whiteAlpha.50" }}
                         _focus={{ bg: "whiteAlpha.100" }}
                       >
-                        {country}
+                        {tag.name}
                       </AutoCompleteItem>
                     );
                   }

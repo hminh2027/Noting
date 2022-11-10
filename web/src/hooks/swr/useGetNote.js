@@ -11,10 +11,10 @@ export function useGetNote() {
   };
 }
 export function useGetNoteById(id) {
-  const { data, error } = useSWR([`note`, { id }], noteApi.get);
+  const { data, error } = useSWR({ url: "note-id", id }, noteApi.get);
 
   return {
-    notes: data,
+    note: data,
     isLoading: !error && !data,
     isError: error,
   };

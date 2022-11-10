@@ -15,9 +15,7 @@ export const DefaultLayout = ({ children }) => {
       <div className="flex flex-col flex-1">
         <Header />
         <div className="flex flex-1">
-          {/* <div> */}
-          <NoteSidebar categories={categories} />
-          {/* </div> */}
+          {categories && <NoteSidebar categories={categories.categories} />}
           <div className="p-4 flex-1">{children}</div>
         </div>
       </div>

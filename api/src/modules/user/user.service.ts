@@ -38,6 +38,7 @@ export class UserService {
       .leftJoinAndSelect('user.categories', 'category')
       .leftJoinAndSelect('category.notes', 'note')
       .where('user.id = :userId', { userId })
-      .getMany();
+      .getOne();
+    // .getMany();
   }
 }

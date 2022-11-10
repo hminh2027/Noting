@@ -11,9 +11,9 @@ const NoteDetail = () => {
     isLoading: isNoteLoading,
     isError: isNoteError,
   } = useGetNoteById(id);
-  if (isNoteLoading) return <div></div>;
-  return <div></div>;
-  // <NoteDetailTemplate note={notes[0]} />;
+  if (isNoteLoading || isNoteError) return <div></div>;
+  console.log(note);
+  return <NoteDetailTemplate note={note} />;
 };
 
 export default NoteDetail;
