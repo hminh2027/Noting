@@ -1,5 +1,13 @@
+import { User } from 'modules/user';
 import { Note } from '../note/note.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 
 @Entity({
   name: 'category',
@@ -16,4 +24,11 @@ export class Category {
     onDelete: 'CASCADE',
   })
   notes: Note[];
+
+  /* N-N */
+  @ManyToMany(() => User, {
+    onDelete: 'CASCADE',
+  })
+  @JoinTable()
+  users: User[];
 }

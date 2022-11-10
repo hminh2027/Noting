@@ -26,7 +26,7 @@ export class NoteService {
       createNoteDto.tagsName.map(async (name) => {
         const tag = await this.tagService.findOneByName(name);
         if (tag.length !== 0) return tag[0];
-        else this.tagService.create({ name });
+        else return await this.tagService.create({ name });
       }),
     );
     newNote.tags = tags;
