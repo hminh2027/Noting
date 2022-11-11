@@ -18,9 +18,9 @@ import { CommentModule } from 'modules/comment/comment.module';
     NoteModule,
     TagModule,
     CategoryModule,
+    SharedNoteModule,
     CommentModule,
     SnapshotModule,
-    SharedNoteModule,
     AttachmentModule,
   ],
 })

@@ -1,6 +1,10 @@
 import { UserService } from './../user/user.service';
 import { Category } from 'modules/category/category.entity';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -14,14 +18,14 @@ export class CategoryService {
     private readonly userService: UserService,
   ) {}
   async create(userId: number, createCategoryDto: CreateCategoryDto) {
-    const isExist = await this.getCategoryByUserIdAndName(
+    const isExist = await this.getOneByUserIdAndName(
       userId,
       createCategoryDto.name,
     );
 
     if (isExist) throw new BadRequestException('Category existed!');
 
-    let newCat = await this.getCategoryByName(createCategoryDto.name);
+    let newCat = await this.getOneByName(createCategoryDto.name);
     if (!newCat) {
       newCat = await this.categoryRepository.create(createCategoryDto);
     }
@@ -30,7 +34,24 @@ export class CategoryService {
     return await this.categoryRepository.save(newCat);
   }
 
-  async findManyByUserId(userId: number) {
+  async update(
+    userId: number,
+    id: number,
+    updateCategoryDto: UpdateCategoryDto,
+  ) {
+    const category = this.getOneByUserIdAndId(userId, id);
+    if (!category) throw new NotFoundException('Category not found!');
+
+    return await this.categoryRepository.update(id, updateCategoryDto);
+  }
+
+  async remove(userId: number, id: number) {
+    const category = this.getOneByUserIdAndId(userId, id);
+    if (!category) throw new NotFoundException('Category not found!');
+    return await this.categoryRepository.delete(id);
+  }
+
+  async getManyByUserId(userId: number) {
     return await this.categoryRepository
       .createQueryBuilder('category')
       .leftJoinAndSelect('category.users', 'user')
@@ -39,7 +60,7 @@ export class CategoryService {
       .getMany();
   }
 
-  async getCategoryByUserIdAndName(userId: number, name: string) {
+  async getOneByUserIdAndName(userId: number, name: string) {
     return await this.categoryRepository
       .createQueryBuilder('category')
       .leftJoinAndSelect('category.users', 'user')
@@ -48,15 +69,16 @@ export class CategoryService {
       .getOne();
   }
 
-  async getCategoryByName(name: string) {
+  async getOneByName(name: string) {
     return await this.categoryRepository.findOne({ where: { name } });
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return this.categoryRepository.update(id, updateCategoryDto);
-  }
-
-  remove(id: number) {
-    return this.categoryRepository.delete(id);
+  async getOneByUserIdAndId(userId: number, id: number) {
+    return await this.categoryRepository
+      .createQueryBuilder('category')
+      .leftJoinAndSelect('category.users', 'user')
+      .where('user.id = :userId', { userId })
+      .andWhere('category.id = :id', { id })
+      .getOne();
   }
 }

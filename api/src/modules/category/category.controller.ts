@@ -31,26 +31,35 @@ export class CategoryController {
   async create(@ReqUser() user, @Body() createCategoryDto: CreateCategoryDto) {
     return {
       statusCode: HttpStatus.OK,
-      message: 'Category created successfully',
+      message: 'Category created!',
       data: await this.categoryService.create(user.id, createCategoryDto),
     };
   }
 
   @Get()
   async findAll(@ReqUser() user) {
-    return await this.categoryService.findManyByUserId(user.id);
+    return await this.categoryService.getManyByUserId(user.id);
   }
 
   @Patch(':id')
-  update(
+  async update(
+    @ReqUser() user,
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.categoryService.update(+id, updateCategoryDto);
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Category updated!',
+      data: await this.categoryService.update(user.id, +id, updateCategoryDto),
+    };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoryService.remove(+id);
+  async remove(@ReqUser() user, @Param('id') id: string) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Category deleted!',
+      data: await this.categoryService.remove(user.id, +id),
+    };
   }
 }

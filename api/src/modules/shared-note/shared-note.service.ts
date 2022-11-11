@@ -1,6 +1,11 @@
 import { NoteService } from './../note/note.service';
 import { SharedNote } from './shared-note.entity';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  forwardRef,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateSharedNoteDto } from './dto/create-shared-note.dto';
 import { UpdateSharedNoteDto } from './dto/update-shared-note.dto';
@@ -12,6 +17,7 @@ export class SharedNoteService {
   constructor(
     @InjectRepository(SharedNote)
     private readonly sharedNoteRepository: Repository<SharedNote>,
+    @Inject(forwardRef(() => NoteService))
     private readonly noteService: NoteService,
   ) {}
   async create(createSharedNoteDto: CreateSharedNoteDto) {
@@ -22,15 +28,9 @@ export class SharedNoteService {
     return await this.sharedNoteRepository.save(newNote);
   }
 
-  getManyByUserId(userId: number) {
-    return this.sharedNoteRepository.find({
-      where: { userId },
-    });
-  }
-
   update(userId: number, updateSharedNoteDto: UpdateSharedNoteDto) {
     console.log(updateSharedNoteDto);
-    this.noteService.getOneById(updateSharedNoteDto.noteId, userId);
+    this.noteService.getOneByIdAndUserId(updateSharedNoteDto.noteId, userId);
 
     // this.sharedNoteRepository.findOne({ where: { user } });
     // return this.sharedNoteRepository.update(id, updateSharedNoteDto);
@@ -38,5 +38,17 @@ export class SharedNoteService {
 
   remove(id: number) {
     return `This action removes a #${id} sharedNote`;
+  }
+
+  async getManyByUserId(userId: number) {
+    return await this.sharedNoteRepository.find({
+      where: { userId },
+    });
+  }
+
+  async getOneByUserIdAndNoteId(userId: number, noteId: number) {
+    return await this.sharedNoteRepository.findOneOrFail({
+      where: { userId, noteId },
+    });
   }
 }
