@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   Input,
   Button,
-  FormLabel,
-  FormHelperText,
   FormControl,
   FormErrorMessage,
   Flex,
@@ -13,20 +11,12 @@ import {
   Heading,
   Box,
   InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Link,
 } from "@chakra-ui/react";
-import { RiAccountCircleFill } from "react-icons/ri";
-import { HiLockClosed } from "react-icons/hi";
-
-export default function App() {
+import Link from "next/link";
+export const SignupForm = () => {
   const {
     register,
-    watch,
     handleSubmit,
-    control,
-    getValues,
     formState: { errors },
   } = useForm();
   const [submittedVal, setSubmittedVal] = useState();
@@ -62,19 +52,25 @@ export default function App() {
             >
               <FormControl id="firstName" isInvalid={errors.firstName}>
                 <InputGroup>
-                  <Input type="text" placeholder="First Name"
-                   {...register("firstName", {
-                     required: { value: true, message: "This is required." },
-                   })} />
+                  <Input
+                    type="text"
+                    placeholder="First Name"
+                    {...register("firstName", {
+                      required: { value: true, message: "This is required." },
+                    })}
+                  />
                 </InputGroup>
                 <FormErrorMessage>{errors.firstName?.message}</FormErrorMessage>
               </FormControl>
               <FormControl id="lastName" isInvalid={errors.lastName}>
-                <InputGroup >
-                  <Input type="text" placeholder="Last Name"
-                   {...register("lastName", {
-                     required: { value: true, message: "This is required." },
-                   })} />
+                <InputGroup>
+                  <Input
+                    type="text"
+                    placeholder="Last Name"
+                    {...register("lastName", {
+                      required: { value: true, message: "This is required." },
+                    })}
+                  />
                 </InputGroup>
                 <FormErrorMessage>{errors.lastName?.message}</FormErrorMessage>
               </FormControl>
@@ -102,14 +98,21 @@ export default function App() {
                 </InputGroup>
                 <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl id="password_confirm" isInvalid={errors.password_confirm} >
+              <FormControl
+                id="password_confirm"
+                isInvalid={errors.password_confirm}
+              >
                 <InputGroup>
-                  <Input type="password" placeholder="Confirm Password"
-                  {...register("password_confirm", {
-                     required: { value: true, message: "This is required." },
-                   })}
-                    />
-                     <FormErrorMessage>{errors.password_confirm?.message}</FormErrorMessage>
+                  <Input
+                    type="password"
+                    placeholder="Confirm Password"
+                    {...register("password_confirm", {
+                      required: { value: true, message: "This is required." },
+                    })}
+                  />
+                  <FormErrorMessage>
+                    {errors.password_confirm?.message}
+                  </FormErrorMessage>
                 </InputGroup>
               </FormControl>
               <Button
@@ -132,39 +135,9 @@ export default function App() {
           </form>
         </Box>
       </Stack>
+      <Link href={"/login"}>
+        <a>Login here</a>
+      </Link>
     </Flex>
-    //  <form onSubmit={handleSubmit(onSubmit)}>
-    //    <FormControl id="userName" isInvalid={errors.userName}>
-    //      <FormLabel>Email address</FormLabel>
-    //      <Input
-    //        {...register("userName", {
-    //          required: { value: true, message: "This is required." }
-    //        })}
-    //      />
-
-    //      <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-    //    </FormControl>
-
-    //    <FormControl id="password" isInvalid={errors.password}>
-    //      <FormLabel>Last name</FormLabel>
-    //      <Input
-    //       type="password"
-    //        {...register("password", {
-    //          required: { value: true, message: "This is required." }
-    //        })}
-    //      />
-
-    //      <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
-    //    </FormControl>
-
-    //    <Button type="submit">Submit</Button>
-    //    {submittedVal && (
-    //      <div>
-    //        Submitted Data:
-    //        <br />
-    //        {JSON.stringify(submittedVal)}
-    //      </div>
-    //    )}
-    //  </form>
   );
-}
+};

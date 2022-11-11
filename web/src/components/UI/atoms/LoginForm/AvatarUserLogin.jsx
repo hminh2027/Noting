@@ -8,7 +8,7 @@ const AvatarUserLogin = ({ className }) => {
         <Avatar
           size="2xl"
           name="Hmingduttt"
-          src="https://bit.ly/sage-adebayo"
+          // src="https://bit.ly/sage-adebayo"
         />{" "}
       </Center>
     </div>
