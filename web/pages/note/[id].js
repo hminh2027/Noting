@@ -12,7 +12,6 @@ const NoteDetail = () => {
     isError: isNoteError,
   } = useGetNoteById(id);
   if (isNoteLoading || isNoteError) return <div></div>;
-  console.log(note);
   return <NoteDetailTemplate note={note} />;
 };
 

@@ -2,7 +2,7 @@ import EditorJs from "@natterstefan/react-editor-js";
 import { EditorTools } from "./EditorTools";
 
 const NoteEditor = ({ note, onChange, onReady }) => {
-  console.log(note.blocks);
+  console.log(note);
   const editor = null;
 
   // const onReady = () => {
