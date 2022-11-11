@@ -1,2 +1,3 @@
-export { useGetNote } from "./useGetNote";
-export { useGetNoteCategory } from "./useGetNoteCategory";
+export * from "./useGetNote";
+export * from "./useGetCategory";
+export * from "./useGetTags";

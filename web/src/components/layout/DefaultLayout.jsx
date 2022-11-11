@@ -1,20 +1,20 @@
+import { useSession } from "next-auth/react";
 import React from "react";
-import { useGetNoteCategory } from "../../hooks/swr";
+import { useGetCategory } from "../../hooks/swr";
 import { NoteSidebar } from "../UI/organism/Note";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 export const DefaultLayout = ({ children }) => {
-  const { categories, isError, isLoading } = useGetNoteCategory();
+  const { user, loading } = useSession();
+  const { categories, isError, isLoading } = useGetCategory();
   return (
-    <div className="flex">
+    <div className="flex min-h-screen max-h-screen">
       {/* <Sidebar /> */}
       <div className="flex flex-col flex-1">
         <Header />
         <div className="flex flex-1">
-          {/* <div> */}
-          <NoteSidebar categories={categories} />
-          {/* </div> */}
+          {categories && <NoteSidebar categories={categories} />}
           <div className="p-4 flex-1">{children}</div>
         </div>
       </div>

@@ -21,7 +21,6 @@ export class UserService {
 
   async create(payload: UserFillableFields) {
     const user = await this.getByEmail(payload.email);
-    console.log('called');
 
     if (user) {
       throw new NotAcceptableException(
@@ -38,6 +37,7 @@ export class UserService {
       .leftJoinAndSelect('user.categories', 'category')
       .leftJoinAndSelect('category.notes', 'note')
       .where('user.id = :userId', { userId })
-      .getMany();
+      .getOne();
+    // .getMany();
   }
 }

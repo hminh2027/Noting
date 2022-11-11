@@ -7,16 +7,26 @@ import {
   Button,
   Box,
   AccordionPanel,
+  useDisclosure,
+  Text,
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
-export const NoteCategory = ({ title, items, className }) => {
+import { CreateNoteModal } from "../../organism/Note";
+import { useRouter } from "next/router";
+export const NoteCategory = ({ category, className }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+  const { name, id: categoryId, notes } = category;
+  const NoteItemClickHandler = (id) => {
+    router.push(`/note/${id}`);
+  };
   return (
     <Accordion defaultIndex={[0]} allowMultiple className={`${className}`}>
       <AccordionItem>
         <AccordionButton className="flex gap-4">
           <AccordionIcon />
           <Box flex="1" textAlign="left">
-            {title}
+            {name}
           </Box>
           {/* Create new note */}
           <Button
@@ -30,15 +40,23 @@ export const NoteCategory = ({ title, items, className }) => {
         </AccordionButton>
         <AccordionPanel padding={"0"}>
           <div className="flex flex-col">
-            {items.map((item) => (
+            {notes?.map((note) => (
               <Button
                 variant="ghost"
                 colorScheme="teal"
-                className="justify-start"
+                key={note.id}
+                className="text-left"
+                onClick={() => NoteItemClickHandler(note.id)}
               >
-                {item.name}
+                <Text fontSize={"sm"}>{note.title}</Text>
               </Button>
             ))}
+            <Button onClick={onOpen}>Add Note</Button>
+            <CreateNoteModal
+              isOpen={isOpen}
+              onClose={onClose}
+              categoryId={categoryId}
+            />
           </div>
         </AccordionPanel>
       </AccordionItem>

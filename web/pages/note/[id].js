@@ -1,16 +1,19 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { NoteDetailTemplate } from "../../src/components/UI/template/Note/NoteDetailTemplate";
-import { useGetNote } from "../../src/hooks/swr";
+import { useGetNoteById } from "../../src/hooks/swr";
 
 const NoteDetail = () => {
+  const { id } = useRouter().query;
+
   const {
-    notes,
+    note,
     isLoading: isNoteLoading,
     isError: isNoteError,
-  } = useGetNote();
-  console.log(notes);
-  if (isNoteLoading) return <div></div>;
-  return <NoteDetailTemplate note={notes[0]} />;
+  } = useGetNoteById(id);
+  if (isNoteLoading || isNoteError) return <div></div>;
+  console.log(note);
+  return <NoteDetailTemplate note={note} />;
 };
 
 export default NoteDetail;
