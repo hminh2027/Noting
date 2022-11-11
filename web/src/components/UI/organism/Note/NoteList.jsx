@@ -12,7 +12,7 @@ export const NoteList = ({ notes, className }) => {
           <Input type="date" />
         </div>
       </div>
-      <div className="flex flex-col flex-1 gap-4">
+      <div className="flex flex-col flex-1 gap-4 max-h-[700px] overflow-auto">
         {notes?.map((note, index) => (
           <NoteCard key={index} note={note} />
         ))}

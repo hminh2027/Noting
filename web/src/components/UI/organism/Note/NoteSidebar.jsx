@@ -7,7 +7,7 @@ export const NoteSidebar = ({ categories, className }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <div className={`flex flex-col justify-between ${className}`}>
-      <div className="flex flex-col">
+      <div className="flex flex-col max-h-[800px] max-w-[250px] overflow-auto">
         {categories?.map((category, index) => (
           <NoteCategory category={category} key={index} />
         ))}

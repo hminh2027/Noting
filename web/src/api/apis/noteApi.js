@@ -1,5 +1,6 @@
 import { basePath } from "../../../next.config";
 import { noteAdapter } from "../../utils/Adapter";
+import { showToast } from "../../utils/Toast";
 
 import { axiosClient } from "../axiosClient";
 
@@ -19,6 +20,9 @@ export const noteApi = {
   },
   post: async (note) => {
     const url = `/note`;
-    return await axiosClient.post(url, note);
+    axiosClient
+      .post(url, note)
+      .then(() => showToast("Note created successfully", "success"))
+      .catch(() => showToast("Failed to create note", "error"));
   },
 };
