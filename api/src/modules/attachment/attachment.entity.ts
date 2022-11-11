@@ -11,7 +11,6 @@ import {
 @Entity({
   name: 'attachment',
 })
-// @Index(['fileName', 'noteId'], { unique: true })
 export class Attachment {
   @PrimaryColumn()
   fileName: string;
@@ -20,7 +19,9 @@ export class Attachment {
   noteId: number;
 
   /* N-1 */
-  @ManyToOne(() => Note, (note) => note.attachments)
+  @ManyToOne(() => Note, (note) => note.attachments, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'noteId' })
   note: Note;
 }

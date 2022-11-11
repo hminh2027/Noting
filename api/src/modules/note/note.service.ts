@@ -1,8 +1,11 @@
-import { Tag } from '../tag/tag.entity';
+import { SnapshotService } from './../snapshot/snapshot.service';
+import { SharedNoteService } from './../shared-note/shared-note.service';
 import { TagService } from './../tag/tag.service';
 import { Note } from './note.entity';
 import {
-  ForbiddenException,
+  BadRequestException,
+  forwardRef,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -10,6 +13,7 @@ import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Permission } from 'modules/shared-note/permission.enum';
 
 @Injectable()
 export class NoteService {
@@ -17,9 +21,12 @@ export class NoteService {
     @InjectRepository(Note)
     private readonly noteRepository: Repository<Note>,
     private readonly tagService: TagService,
+    @Inject(forwardRef(() => SharedNoteService))
+    private readonly sharedService: SharedNoteService,
+    private readonly snapshotService: SnapshotService,
   ) {}
   async create(userId: number, createNoteDto: CreateNoteDto) {
-    const newNote = await this.noteRepository.create(createNoteDto);
+    let newNote = await this.noteRepository.create(createNoteDto);
     newNote.userId = userId;
 
     const tags = await Promise.all(
@@ -30,30 +37,56 @@ export class NoteService {
       }),
     );
     newNote.tags = tags;
-    return await this.noteRepository.save(newNote);
-  }
-
-  getManyByUserId(userId: number) {
-    return this.noteRepository.find({ where: { userId } });
-  }
-
-  async getOneById(id: number, userId: number) {
-    return await this.noteRepository.findOne({ where: { id, userId } });
+    newNote = await this.noteRepository.save(newNote);
+    await this.sharedService.create({
+      userId,
+      noteId: newNote.id,
+      permission: Permission.FULL_ACCESS,
+    });
+    return newNote;
   }
 
   async update(id: number, userId: number, updateNoteDto: UpdateNoteDto) {
-    await this.checkExistence(id, userId);
+    const sharedNote = await this.sharedService.getOneByUserIdAndNoteId(
+      userId,
+      id,
+    );
+    if (!sharedNote) throw new NotFoundException('Note not found!');
+    if (sharedNote.permission < Permission.EDITABLE)
+      throw new BadRequestException('You are not allow to update this note!');
+    const note = await this.getOneById(id);
+    await this.snapshotService.create({
+      title: note.title,
+      description: 'Note has been changed!',
+      content: note.content,
+      userId,
+      noteId: note.id,
+    });
     return this.noteRepository.update(id, updateNoteDto);
   }
 
   async remove(id: number, userId: number) {
-    await this.checkExistence(id, userId);
+    const note = await this.sharedService.getOneByUserIdAndNoteId(userId, id);
+    if (!note) throw new NotFoundException('Note not found!');
+
     return this.noteRepository.delete(id);
   }
 
+  async getManyByUserId(userId: number) {
+    return await this.noteRepository.find({ where: { userId } });
+  }
+
+  async getOneByIdAndUserId(id: number, userId: number) {
+    return await this.noteRepository.findOne({ where: { id, userId } });
+  }
+
+  async getOneById(id: number) {
+    return await this.noteRepository.findOne({ where: { id } });
+  }
+
   async checkExistence(id: number, userId: number) {
-    const note = await this.getOneById(id, userId);
-    if (!note) throw new ForbiddenException('Note not exist!');
+    const note = await this.getOneByIdAndUserId(id, userId);
+    if (!note) throw new NotFoundException('Note not exist!');
     return true;
   }
 }

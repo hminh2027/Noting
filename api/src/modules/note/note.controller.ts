@@ -30,34 +30,40 @@ export class NoteController {
   async create(@ReqUser() user, @Body() createNoteDto: CreateNoteDto) {
     return {
       statusCode: HttpStatus.OK,
-      message: 'Note created successfully',
+      message: 'Note created!',
       data: await this.noteService.create(user.id, createNoteDto),
     };
   }
 
   @Get()
   findAll(@ReqUser() user) {
-    return this.noteService.getManyByUserId(1);
-    // return this.noteService.getManyByUserId(user.id);
+    return this.noteService.getManyByUserId(user.id);
   }
 
   @Get(':id')
   findOne(@Param('id') id: number, @ReqUser() user) {
-    return this.noteService.getOneById(+id, 1);
-    // return this.noteService.getOneById(+id, user.id);
+    return this.noteService.getOneByIdAndUserId(+id, user.id);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: number,
     @ReqUser() user,
     @Body() updateNoteDto: UpdateNoteDto,
   ) {
-    return this.noteService.update(+id, user.id, updateNoteDto);
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Note updated!',
+      data: await this.noteService.update(+id, user.id, updateNoteDto),
+    };
   }
 
   @Delete(':id')
-  remove(@ReqUser() user, @Param('id') id: number) {
-    return this.noteService.remove(+id, user.id);
+  async remove(@ReqUser() user, @Param('id') id: number) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Note deleted!',
+      data: await this.noteService.remove(+id, user.id),
+    };
   }
 }
