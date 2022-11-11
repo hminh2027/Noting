@@ -38,6 +38,7 @@ export const NoteCreate = ({ categoryId }) => {
   const { tags } = useGetTag();
   function onSubmit(values) {
     createNote(values);
+    mutate("category-all");
     mutate("notes");
     mutate("tags");
   }

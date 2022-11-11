@@ -1,4 +1,5 @@
 import { basePath } from "../../../next.config";
+import { showToast } from "../../utils/Toast";
 import { axiosClient } from "../axiosClient";
 
 export const categoryApi = {
@@ -10,6 +11,9 @@ export const categoryApi = {
 
   post: async (name) => {
     const url = `/category`;
-    return await axiosClient.post(url, name);
+    axiosClient
+      .post(url, name)
+      .then(() => showToast("Category created successfully!", "success"))
+      .catch(() => showToast("Failed to create new category!", "error"));
   },
 };

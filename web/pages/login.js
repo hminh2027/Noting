@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import AvatarUserLogin from "../src/components/UI/atoms/LoginForm/AvatarUserLogin";
 import ButtonLogin from "../src/components/UI/atoms/LoginForm/ButtonLogin";
 import LoginInputGroup from "../src/components/UI/molecules/LoginInput/LoginInputGroup";
@@ -11,8 +11,11 @@ const Login = () => {
     await logIn(email.current.value, password.current.value);
   };
   return (
-    <LoginTemplate/>
-   
+    <LoginTemplate
+      onLogin={loginHanlder}
+      emailRef={email}
+      passwordRef={password}
+    />
   );
 };
 

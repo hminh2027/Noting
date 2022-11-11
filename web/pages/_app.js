@@ -3,6 +3,8 @@ import "../src/styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { SessionProvider } from "next-auth/react";
 import SessionLoader from "../src/api/SessionLoader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 function MyApp({ Component, pageProps }) {
   const Layout = Component.layout || DefaultLayout;
   return (
@@ -11,6 +13,7 @@ function MyApp({ Component, pageProps }) {
         <ChakraProvider>
           <Layout>
             <Component {...pageProps} />
+            <ToastContainer />
           </Layout>
         </ChakraProvider>
       </SessionLoader>
