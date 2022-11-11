@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   controllers: [SharedNoteController],
-  imports: [TypeOrmModule.forFeature([SharedNote]), NoteModule],
+  imports: [TypeOrmModule.forFeature([SharedNote])],
   exports: [SharedNoteService],
   providers: [SharedNoteService],
 })

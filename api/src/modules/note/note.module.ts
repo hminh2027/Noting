@@ -13,7 +13,7 @@ import { SnapshotModule } from 'modules/snapshot/snapshot.module';
     TypeOrmModule.forFeature([Note]),
     TagModule,
     SnapshotModule,
-    forwardRef(() => SharedNoteModule),
+    SharedNoteModule,
   ],
   exports: [NoteService],
   providers: [NoteService],
