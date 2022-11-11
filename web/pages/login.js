@@ -1,22 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
-import AvatarUserLogin from "../src/components/UI/atoms/LoginForm/AvatarUserLogin";
-import ButtonLogin from "../src/components/UI/atoms/LoginForm/ButtonLogin";
-import LoginInputGroup from "../src/components/UI/molecules/LoginInput/LoginInputGroup";
+import Link from "next/link";
+import React from "react";
+import { EmptyLayout } from "../src/components/layout/EmptyLayout";
 import LoginTemplate from "../src/components/UI/template/Login/LoginTemplate";
-import { logIn } from "../src/service/auth";
 const Login = () => {
-  const email = useRef();
-  const password = useRef();
-  const loginHanlder = async () => {
-    await logIn(email.current.value, password.current.value);
-  };
   return (
-    <LoginTemplate
-      onLogin={loginHanlder}
-      emailRef={email}
-      passwordRef={password}
-    />
+    <div>
+      <LoginTemplate />
+    </div>
   );
 };
-
+Login.layout = EmptyLayout;
 export default Login;

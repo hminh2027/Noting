@@ -48,10 +48,12 @@ export const NoteCategory = ({ category, className }) => {
                 variant="ghost"
                 colorScheme="teal"
                 key={note.id}
-                className="text-left py-2 px-1 cursor-pointer truncate hover:bg-gray-200"
+                className="text-left py-2 px-1 cursor-pointer  hover:bg-gray-200"
                 onClick={() => NoteItemClickHandler(note.id)}
               >
-                <Text fontSize={"sm"}>{note.title}</Text>
+                <Text className="truncate" fontSize={"sm"}>
+                  {note.title}
+                </Text>
               </div>
             ))}
             <CreateNoteModal
