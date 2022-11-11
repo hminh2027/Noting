@@ -26,32 +26,34 @@ export const NoteCategory = ({ category, className }) => {
         <AccordionButton className="flex gap-4">
           <AccordionIcon />
           <Box flex="1" textAlign="left">
-            {name}
+            <Text fontWeight={"medium"}>{name}</Text>
           </Box>
           {/* Create new note */}
           <Button
             variant={"ghost"}
             size="sm"
             colorScheme="cyan"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpen();
+            }}
           >
             <FaPlus />
           </Button>
         </AccordionButton>
         <AccordionPanel padding={"0"}>
-          <div className="flex flex-col">
+          <div className="flex flex-col  ">
             {notes?.map((note) => (
-              <Button
+              <div
                 variant="ghost"
                 colorScheme="teal"
                 key={note.id}
-                className="text-left"
+                className="text-left py-2 px-1 cursor-pointer truncate hover:bg-gray-200"
                 onClick={() => NoteItemClickHandler(note.id)}
               >
                 <Text fontSize={"sm"}>{note.title}</Text>
-              </Button>
+              </div>
             ))}
-            <Button onClick={onOpen}>Add Note</Button>
             <CreateNoteModal
               isOpen={isOpen}
               onClose={onClose}

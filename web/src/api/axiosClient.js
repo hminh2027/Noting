@@ -3,7 +3,6 @@ import { parse, stringify } from "qs";
 // Set up default config for http requests here
 
 // Please have a look at here `https://github.com/axios/axios#request-config` for the full list of configs
-
 export const axiosClient = axios.create({
   baseURL: process.env.BASE_API_URL,
   headers: {
@@ -20,6 +19,7 @@ export const setToken = (token) => {
 
 axiosClient.interceptors.request.use(async (config) => {
   // Handle token here ...
+
   return config;
 });
 
@@ -32,6 +32,7 @@ axiosClient.interceptors.response.use(
   },
   (error) => {
     // Handle errors
+
     throw error;
   }
 );

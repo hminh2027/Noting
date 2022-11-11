@@ -4,8 +4,6 @@ import { tagApi } from "../../api/apis";
 
 export function useGetTag() {
   const { data, error } = useSWR(`tags`, tagApi.getAll);
-  console.log("Heelo");
-
   return {
     tags: data,
     isLoading: !error && !data,
@@ -14,7 +12,6 @@ export function useGetTag() {
 }
 export function useGetTagById(id) {
   const { data, error } = useSWR([`tag`, { id }], tagApi.get);
-
   return {
     tags: data,
     isLoading: !error && !data,
