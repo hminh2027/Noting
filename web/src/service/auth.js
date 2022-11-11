@@ -1,14 +1,11 @@
 import { signIn, signOut } from "next-auth/react";
 
-export const logIn = async (email, password) => {
-  const res = await signIn("credentials", {
+export const logIn = async ({ email, password }) => {
+  signIn("credentials", {
     redirect: false,
     email: email,
     password: password,
-  });
-  console.log(res);
-  if (res.status === 200) return "Login successfully";
-  if (res.status === 401) return "Authorization failed";
+  }).then(() => (window.location.href = "/"));
 };
 export const logOut = async () => {
   await signOut({ callbackUrl: "/login", redirect: true });
