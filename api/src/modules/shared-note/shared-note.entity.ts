@@ -23,11 +23,6 @@ export class SharedNote {
 
   @Column({ type: 'enum', enum: Permission, default: Permission.VIEWABLE })
   permission: Permission;
-  // @Column({ type: Boolean, default: false })
-  // isEditable: Boolean;
-
-  // @Column({ type: Boolean, default: false })
-  // isCommentable: Boolean;
 
   @CreateDateColumn()
   createdAt: Date;

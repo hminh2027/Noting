@@ -21,27 +21,10 @@ export class CreateSharedNoteDto {
 
   @ApiProperty({
     required: true,
-    // type: En
     enum: Permission,
     default: Permission.VIEWABLE,
   })
   @IsEnum(Permission)
   @IsNotEmpty()
   permission: Permission;
-
-  // @ApiProperty({
-  //   required: true,
-  //   type: Boolean,
-  //   default: false,
-  // })
-  // @IsBoolean()
-  // isTemplate: string;
-
-  // @ApiProperty({
-  //   required: true,
-  //   type: Boolean,
-  //   default: false,
-  // })
-  // @IsBoolean()
-  // isPublic: string;
 }

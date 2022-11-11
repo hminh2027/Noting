@@ -21,7 +21,6 @@ export class NoteService {
     @InjectRepository(Note)
     private readonly noteRepository: Repository<Note>,
     private readonly tagService: TagService,
-    @Inject(forwardRef(() => SharedNoteService))
     private readonly sharedService: SharedNoteService,
     private readonly snapshotService: SnapshotService,
   ) {}
@@ -38,7 +37,7 @@ export class NoteService {
     );
     newNote.tags = tags;
     newNote = await this.noteRepository.save(newNote);
-    await this.sharedService.create({
+    await this.sharedService.create(userId, {
       userId,
       noteId: newNote.id,
       permission: Permission.FULL_ACCESS,
@@ -72,12 +71,14 @@ export class NoteService {
     return this.noteRepository.delete(id);
   }
 
+  async share() {}
+
   async getManyByUserId(userId: number) {
     return await this.noteRepository.find({ where: { userId } });
   }
 
   async getOneByIdAndUserId(id: number, userId: number) {
-    return await this.noteRepository.findOne({ where: { id, userId } });
+    return await this.sharedService.getOneByUserIdAndNoteId(userId, id);
   }
 
   async getOneById(id: number) {
