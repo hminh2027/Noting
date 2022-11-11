@@ -9,7 +9,7 @@ export const DefaultLayout = ({ children }) => {
   const { user, loading } = useSession();
   const { categories, isError, isLoading } = useGetCategory();
   return (
-    <div className="flex min-h-screen max-h-screen">
+    <div className="flex min-h-screen max-h-screen max-w-[1920px]">
       {/* <Sidebar /> */}
       <div className="flex flex-col flex-1">
         <Header />

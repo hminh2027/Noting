@@ -9,6 +9,7 @@ import {
   UsePipes,
   ValidationPipe,
   UseGuards,
+  HttpStatus,
 } from '@nestjs/common';
 import { SharedNoteService } from './shared-note.service';
 import { CreateSharedNoteDto } from './dto/create-shared-note.dto';
@@ -26,22 +27,49 @@ export class SharedNoteController {
   constructor(private readonly sharedNoteService: SharedNoteService) {}
 
   @Post()
-  create(@Body() createSharedNoteDto: CreateSharedNoteDto) {
-    return this.sharedNoteService.create(createSharedNoteDto);
+  async create(
+    @ReqUser() user,
+    @Body() createSharedNoteDto: CreateSharedNoteDto,
+  ) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Note shared!',
+      data: await this.sharedNoteService.create(user.id, createSharedNoteDto),
+    };
   }
 
   @Get()
-  findAll() {
-    return this.sharedNoteService.getManyByUserId(1);
+  findAll(@ReqUser() user) {
+    return this.sharedNoteService.getManyByUserId(user.id);
+  }
+
+  @Get(':id')
+  findOne(@ReqUser() user, @Param('id') id: number) {
+    return this.sharedNoteService.getManyByUserId(user.id);
   }
 
   @Patch()
-  update(@ReqUser() user, @Body() updateSharedNoteDto: UpdateSharedNoteDto) {
-    return this.sharedNoteService.update(user.id, updateSharedNoteDto);
+  async update(
+    @ReqUser() user,
+    @Body() updateSharedNoteDto: UpdateSharedNoteDto,
+  ) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Permissions updated!',
+      data: await this.sharedNoteService.update(user.id, updateSharedNoteDto),
+    };
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.sharedNoteService.remove(+id);
+  @Delete()
+  async remove(
+    @ReqUser() user,
+    @Param('userId') userId: string,
+    @Param('noteId') noteId: string,
+  ) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Permissions removed!',
+      data: await this.sharedNoteService.remove(user.id, +userId, +noteId),
+    };
   }
 }
