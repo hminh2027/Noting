@@ -69,6 +69,7 @@ export class SharedNoteService {
     return await this.sharedNoteRepository
       .createQueryBuilder('shared_note')
       .leftJoinAndSelect('shared_note.note', 'note')
+      .leftJoinAndSelect('shared_note.user', 'user')
       .where('shared_note.userId = :userId', { userId })
       .getMany();
   }
