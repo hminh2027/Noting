@@ -25,10 +25,7 @@ export class CategoryService {
 
     if (isExist) throw new BadRequestException('Category existed!');
 
-    let newCat = await this.getOneByName(createCategoryDto.name);
-    if (!newCat) {
-      newCat = await this.categoryRepository.create(createCategoryDto);
-    }
+    const newCat = await this.categoryRepository.create(createCategoryDto);
     const user = await this.userService.get(userId);
     newCat.users = [user];
     return await this.categoryRepository.save(newCat);

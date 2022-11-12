@@ -1,3 +1,4 @@
+import { SharedNoteService } from './../shared-note/shared-note.service';
 import {
   Controller,
   Get,
@@ -17,6 +18,8 @@ import { UpdateNoteDto } from './dto/update-note.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ReqUser } from 'common/decorator/user.decorator';
 import { JwtAuthGuard } from 'common/guards/jwt.guard';
+import { UpdateSharedNoteDto } from 'modules/shared-note/dto/update-shared-note.dto';
+import { CreateSharedNoteDto } from 'modules/shared-note/dto/create-shared-note.dto';
 
 @Controller('note')
 @ApiTags('note')
@@ -24,7 +27,10 @@ import { JwtAuthGuard } from 'common/guards/jwt.guard';
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 export class NoteController {
-  constructor(private readonly noteService: NoteService) {}
+  constructor(
+    private readonly noteService: NoteService,
+    private readonly sharedNoteService: SharedNoteService,
+  ) {}
 
   @Post()
   async create(@ReqUser() user, @Body() createNoteDto: CreateNoteDto) {
@@ -35,9 +41,21 @@ export class NoteController {
     };
   }
 
+  @Post('/permission/share')
+  async share(@Body() createSharedNoteDto: CreateSharedNoteDto) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Note shared!',
+      data: await this.sharedNoteService.create(createSharedNoteDto),
+    };
+  }
+
   @Get()
-  findAll(@ReqUser() user) {
-    return this.noteService.getManyByUserId(user.id);
+  async findAll(@ReqUser() user) {
+    return {
+      private: await this.noteService.getManyByUserId(user.id),
+      shared: await this.sharedNoteService.getManyByUserId(user.id),
+    };
   }
 
   @Get(':id')
@@ -58,12 +76,37 @@ export class NoteController {
     };
   }
 
+  @Patch('/permission/update')
+  async updatePermission(
+    @ReqUser() user,
+    @Body() updateSharedNoteDto: UpdateSharedNoteDto,
+  ) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Permissions updated!',
+      data: await this.sharedNoteService.update(user.id, updateSharedNoteDto),
+    };
+  }
+
   @Delete(':id')
   async remove(@ReqUser() user, @Param('id') id: number) {
     return {
       statusCode: HttpStatus.OK,
       message: 'Note deleted!',
       data: await this.noteService.remove(+id, user.id),
+    };
+  }
+
+  @Delete('/permission/delete')
+  async removeShare(
+    @ReqUser() user,
+    @Param('userId') userId: string,
+    @Param('noteId') noteId: string,
+  ) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Permissions removed!',
+      data: await this.sharedNoteService.remove(user.id, +userId, +noteId),
     };
   }
 }

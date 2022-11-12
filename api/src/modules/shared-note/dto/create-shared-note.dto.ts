@@ -20,11 +20,9 @@ export class CreateSharedNoteDto {
   noteId: number;
 
   @ApiProperty({
-    required: true,
     enum: Permission,
     default: Permission.VIEWABLE,
   })
   @IsEnum(Permission)
-  @IsNotEmpty()
   permission: Permission;
 }

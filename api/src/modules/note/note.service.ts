@@ -71,8 +71,6 @@ export class NoteService {
     return this.noteRepository.delete(id);
   }
 
-  async share() {}
-
   async getManyByUserId(userId: number) {
     return await this.noteRepository.find({ where: { userId } });
   }
