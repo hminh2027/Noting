@@ -7,7 +7,7 @@ export const PermissionRow = ({
     name: "Full access",
     description: "Can edit and share with others.",
   },
-  isChecked = true,
+  isActive = true,
 }) => {
   const { name, description } = permission;
   return (
@@ -19,7 +19,7 @@ export const PermissionRow = ({
             {description}
           </Text>
         </div>
-        <div>{isChecked ? <FaCheck /> : ""}</div>
+        <div>{isActive ? <FaCheck /> : ""}</div>
       </div>
     </Button>
   );

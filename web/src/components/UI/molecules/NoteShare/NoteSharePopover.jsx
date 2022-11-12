@@ -6,7 +6,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { AccountList, InviteInput } from ".";
-export const NoteSharePopover = () => {
+export const NoteSharePopover = ({ note }) => {
   return (
     <Popover preventOverflow={true} isLazy>
       <PopoverTrigger>
@@ -19,7 +19,7 @@ export const NoteSharePopover = () => {
         <div className="flex flex-col gap-2 p-2 divide-y">
           <InviteInput />
           <div className="flex flex-col">
-            <AccountList />
+            <AccountList note={note} />
           </div>
         </div>
         {/* </PopoverBody> */}

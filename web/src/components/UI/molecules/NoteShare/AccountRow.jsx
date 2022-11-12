@@ -4,16 +4,17 @@ import { PermissionListPopover } from ".";
 
 export const AccountRow = ({
   user = {
-    name: "Example",
+    firstName: "Example",
+    lastName: "Example",
     email: "email@example.com",
   },
 }) => {
-  const { name, email } = user;
+  const { firstName, lastName, email } = user.user;
   return (
     <div className="flex items-center justify-between gap-2">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 py-2">
         <Avatar
-          name="Kola Tioluwani"
+          name={firstName + lastName}
           src="https://bit.ly/tioluwani-kolawole"
           size={"sm"}
         />
@@ -23,7 +24,7 @@ export const AccountRow = ({
         </div>
       </div>
       <div>
-        <PermissionListPopover />
+        <PermissionListPopover user={user} />
       </div>
     </div>
   );

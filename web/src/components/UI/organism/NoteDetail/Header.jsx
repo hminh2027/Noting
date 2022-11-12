@@ -17,7 +17,7 @@ export const Header = ({ note }) => {
         {note.title}
       </Text>
       <div className="flex gap-4">
-        <NoteSharePopover />
+        <NoteSharePopover note={note} />
         <IconButton
           size="sm"
           icon={<AiOutlineClockCircle />}

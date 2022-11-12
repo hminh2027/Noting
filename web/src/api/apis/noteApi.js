@@ -10,7 +10,7 @@ export const noteApi = {
     const res = await axiosClient.get(url, { params });
 
     return res.map((note) =>
-      noteAdapter.setNote(note).convertContentToBlock().getNote()
+      noteAdapter.setNote(note.note).convertContentToBlock().getNote()
     );
   },
   get: async ({ id }) => {
