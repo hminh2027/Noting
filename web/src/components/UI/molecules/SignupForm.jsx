@@ -13,16 +13,23 @@ import {
   InputGroup,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { signUp } from "../../../service/auth";
 export const SignupForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const [submittedVal, setSubmittedVal] = useState();
-  const onSubmit = (data) => {
-    setSubmittedVal(data);
-    console.log(data);
+  } = useForm({
+    defaultValues: {
+      email: "",
+      firstName: "",
+      lastName: "",
+      password: "",
+      passwordConfirmation: "",
+    },
+  });
+  const onSubmit = (values) => {
+    signUp(values);
   };
 
   return (
@@ -74,17 +81,17 @@ export const SignupForm = () => {
                 </InputGroup>
                 <FormErrorMessage>{errors.lastName?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl id="userName" isInvalid={errors.userName}>
+              <FormControl id="email" isInvalid={errors.email}>
                 <InputGroup>
                   <Input
                     type="email"
                     placeholder="email address"
-                    {...register("userName", {
+                    {...register("email", {
                       required: { value: true, message: "This is required." },
                     })}
                   />
                 </InputGroup>
-                <FormErrorMessage>{errors.userName?.message}</FormErrorMessage>
+                <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
               </FormControl>
               <FormControl id="password" isInvalid={errors.password}>
                 <InputGroup>
@@ -99,14 +106,14 @@ export const SignupForm = () => {
                 <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
               </FormControl>
               <FormControl
-                id="password_confirm"
-                isInvalid={errors.password_confirm}
+                id="passwordConfirmation"
+                isInvalid={errors.passwordConfirmation}
               >
                 <InputGroup>
                   <Input
                     type="password"
                     placeholder="Confirm Password"
-                    {...register("password_confirm", {
+                    {...register("passwordConfirmation", {
                       required: { value: true, message: "This is required." },
                     })}
                   />
@@ -125,13 +132,6 @@ export const SignupForm = () => {
                 Signup
               </Button>
             </Stack>
-            {submittedVal && (
-              <div>
-                Submitted Data:
-                <br />
-                {JSON.stringify(submittedVal)}
-              </div>
-            )}
           </form>
         </Box>
       </Stack>

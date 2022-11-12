@@ -33,14 +33,17 @@ export const NoteCreate = ({ categoryId }) => {
       isPublic: false,
       tagsName: [],
       categoryId,
+      content: "",
     },
   });
   const { tags } = useGetTag();
   function onSubmit(values) {
     createNote(values);
-    mutate("category-all");
-    mutate("notes");
-    mutate("tags");
+    setTimeout(async () => {
+      await mutate("category-all");
+      await mutate("notes");
+      await mutate("tags");
+    }, 500);
   }
 
   return (

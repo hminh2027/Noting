@@ -33,13 +33,20 @@ export class SharedNoteService {
   }
 
   async update(userId: number, updateSharedNoteDto: UpdateSharedNoteDto) {
-    const sharedNote = await this.getOneByUserIdAndNoteId(
-      updateSharedNoteDto.noteId,
+    const isAuthor = await this.getOneByUserIdAndNoteId(
       userId,
+      updateSharedNoteDto.noteId,
     );
-    if (!sharedNote || sharedNote.permission != Permission.FULL_ACCESS)
+    if (
+      isAuthor.note.userId != userId
+      // || isAuthor.permission != Permission.FULL_ACCESS
+    )
       throw new ForbiddenException('You are not allow to update permission');
 
+    const sharedNote = await this.getOneByUserIdAndNoteId(
+      updateSharedNoteDto.userId,
+      updateSharedNoteDto.noteId,
+    );
     sharedNote.permission = updateSharedNoteDto.permission;
     return await this.sharedNoteRepository.save(sharedNote);
   }

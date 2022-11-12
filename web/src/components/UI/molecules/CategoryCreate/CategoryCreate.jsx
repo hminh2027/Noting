@@ -22,9 +22,9 @@ export const CategoryCreate = () => {
       name: "",
     },
   });
-  const onSubmit = async (values) => {
-    await createCategory(values);
-    mutate("category-all");
+  const onSubmit = (values) => {
+    createCategory(values);
+    setTimeout(async () => await mutate("category-all"), 1000);
   };
   return (
     <>

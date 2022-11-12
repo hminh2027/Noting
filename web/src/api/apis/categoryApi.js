@@ -11,7 +11,7 @@ export const categoryApi = {
 
   post: async (name) => {
     const url = `/category`;
-    axiosClient
+    return await axiosClient
       .post(url, name)
       .then(() => showToast("Category created successfully!", "success"))
       .catch(() => showToast("Failed to create new category!", "error"));
