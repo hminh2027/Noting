@@ -1,17 +1,28 @@
 import { Button, Text } from "@chakra-ui/react";
 import React from "react";
 import { FaCheck } from "react-icons/fa";
+import { useSWRConfig } from "swr";
+import { useGetNoteById } from "../../../../hooks/swr";
+
+import { updatePermission } from "../../../../service/note-share";
 
 export const PermissionRow = ({
-  permission = {
-    name: "Full access",
-    description: "Can edit and share with others.",
-  },
+  onClose,
+  permission,
   isActive = true,
+  user,
+  mutate,
 }) => {
-  const { name, description } = permission;
+  const { noteId, userId } = user;
+  const { name, description, id } = permission;
+  const onClickHandler = () => {
+    updatePermission({ noteId, userId, permission: id });
+    setTimeout(async () => {
+      await mutate();
+    }, 1000);
+  };
   return (
-    <Button variant={"ghost"} className="text-left">
+    <Button variant={"ghost"} className="text-left" onClick={onClickHandler}>
       <div className="flex w-full justify-between items-center">
         <div className="flex flex-col">
           <Text fontWeight={"normal"}>{name}</Text>

@@ -76,7 +76,14 @@ export class NoteService {
   }
 
   async getOneByIdAndUserId(id: number, userId: number) {
-    return await this.sharedService.getOneByUserIdAndNoteId(userId, id);
+    return await this.noteRepository
+      .createQueryBuilder('note')
+      .leftJoinAndSelect('note.sharedNotes', 'shared_note')
+      // .where('shared_note.userId = :userId', { userId })
+      .leftJoinAndSelect('shared_note.user', 'user')
+      .where('shared_note.noteId = :noteId', { noteId: id })
+      .getOne();
+    // return await this.sharedService.getOneByUserIdAndNoteId(userId, id);
   }
 
   async getOneById(id: number) {

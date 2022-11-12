@@ -13,16 +13,24 @@ export const noteApi = {
       noteAdapter.setNote(note.note).convertContentToBlock().getNote()
     );
   },
-  get: async ({ id }) => {
+  get: async (id) => {
     const url = `/note/${id}`;
     const note = await axiosClient.get(url);
-    return noteAdapter.setNote(note.note).convertContentToBlock().getNote();
+
+    return noteAdapter.setNote(note).convertContentToBlock().getNote();
   },
-  post: async (note) => {
+  create: (note) => {
     const url = `/note`;
-    axiosClient
+    return axiosClient
       .post(url, note)
       .then(() => showToast("Note created successfully", "success"))
       .catch(() => showToast("Failed to create note", "error"));
+  },
+  updatePermission: ({ userId, noteId, permission }) => {
+    const url = `/note/permission/update`;
+    return axiosClient
+      .patch(url, { userId, noteId, permission })
+      .then(() => showToast("Permission updated successfully", "success"))
+      .catch(() => showToast("Failed to update permission", "error"));
   },
 };

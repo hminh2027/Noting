@@ -10,9 +10,10 @@ const NoteDetail = () => {
     note,
     isLoading: isNoteLoading,
     isError: isNoteError,
+    mutate,
   } = useGetNoteById(id);
   if (isNoteLoading || isNoteError) return <div></div>;
-  return <NoteDetailTemplate note={note} />;
+  return <NoteDetailTemplate mutate={mutate} note={note} />;
 };
 
 export default NoteDetail;
