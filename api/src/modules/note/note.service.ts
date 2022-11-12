@@ -37,7 +37,7 @@ export class NoteService {
     );
     newNote.tags = tags;
     newNote = await this.noteRepository.save(newNote);
-    await this.sharedService.create(userId, {
+    await this.sharedService.create({
       userId,
       noteId: newNote.id,
       permission: Permission.FULL_ACCESS,
