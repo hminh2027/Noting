@@ -10,7 +10,7 @@ export const NoteSharePopover = ({ note }) => {
   return (
     <Popover preventOverflow={true} isLazy>
       <PopoverTrigger>
-        <Button size="sm" variant={"ghost"}>
+        <Button size="md" variant={"ghost"}>
           Share
         </Button>
       </PopoverTrigger>
