@@ -20,15 +20,7 @@ export class SharedNoteService {
     @InjectRepository(SharedNote)
     private readonly sharedNoteRepository: Repository<SharedNote>,
   ) {}
-  async create(userId: number, createSharedNoteDto: CreateSharedNoteDto) {
-    const sharedNote = await this.getOneByUserIdAndNoteId(
-      userId,
-      createSharedNoteDto.noteId,
-    );
-
-    if (!sharedNote)
-      throw new ForbiddenException('You are not allowed to modify!');
-
+  async create(createSharedNoteDto: CreateSharedNoteDto) {
     const existed = await this.getOneByUserIdAndNoteId(
       createSharedNoteDto.userId,
       createSharedNoteDto.noteId,

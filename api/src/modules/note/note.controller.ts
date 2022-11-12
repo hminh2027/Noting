@@ -42,14 +42,11 @@ export class NoteController {
   }
 
   @Post('/permission/share')
-  async share(
-    @ReqUser() user,
-    @Body() createSharedNoteDto: CreateSharedNoteDto,
-  ) {
+  async share(@Body() createSharedNoteDto: CreateSharedNoteDto) {
     return {
       statusCode: HttpStatus.OK,
       message: 'Note shared!',
-      data: await this.sharedNoteService.create(user.id, createSharedNoteDto),
+      data: await this.sharedNoteService.create(createSharedNoteDto),
     };
   }
 
