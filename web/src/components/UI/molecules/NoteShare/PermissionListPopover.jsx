@@ -8,18 +8,20 @@ import {
 import React from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { PermissionList } from ".";
+import { USER_PERMISSIONS } from "../../../../const";
 
-export const PermissionListPopover = () => {
+export const PermissionListPopover = ({ user }) => {
+  console.log(user.permission);
   return (
     <Popover>
       <PopoverTrigger>
-        <Button rightIcon={<FaAngleDown />} size="xs">
-          Permission
+        <Button rightIcon={<FaAngleDown />} size="xs" variant="ghost">
+          {USER_PERMISSIONS[`${user.permission}`].name}
         </Button>
       </PopoverTrigger>
       <PopoverContent>
         <div className="p-1">
-          <PermissionList />
+          <PermissionList user={user} />
         </div>
       </PopoverContent>
     </Popover>

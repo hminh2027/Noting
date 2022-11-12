@@ -1,17 +1,17 @@
-import React from "react";
 import {
   Drawer,
-  DrawerBody,
-  DrawerHeader,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  IconButton,
+  DrawerHeader,
+  DrawerBody,
   useDisclosure,
+  IconButton,
 } from "@chakra-ui/react";
-import { NoteActivityList } from "./NoteActivityList";
-import { AiOutlineClockCircle } from "react-icons/ai";
-export const NoteActivityDrawer = () => {
+import React from "react";
+import { CommentList } from "./CommentList";
+import { BsChatLeftText } from "react-icons/bs";
+export const NoteCommentDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -19,17 +19,16 @@ export const NoteActivityDrawer = () => {
       <IconButton
         size="md"
         variant={"ghost"}
-        icon={<AiOutlineClockCircle />}
+        icon={<BsChatLeftText />}
         onClick={onOpen}
       />
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size={"sm"}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Note's activities</DrawerHeader>
-
+          <DrawerHeader>Note's comments</DrawerHeader>
           <DrawerBody>
-            <NoteActivityList />
+            <CommentList />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
