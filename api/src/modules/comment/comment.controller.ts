@@ -9,8 +9,10 @@ import {
   UsePipes,
   ValidationPipe,
   UseGuards,
+  HttpStatus,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ReqUser } from 'common/decorator/user.decorator';
 import { JwtAuthGuard } from 'common/guards/jwt.guard';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -25,17 +27,33 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post()
-  create(@Body() createCommentDto: CreateCommentDto) {
-    return this.commentService.create(createCommentDto);
+  async create(@ReqUser() user, @Body() createCommentDto: CreateCommentDto) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Comment created!',
+      data: await this.commentService.create(user.id, createCommentDto),
+    };
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
-    return this.commentService.update(+id, updateCommentDto);
+  async update(
+    @ReqUser() user,
+    @Param('id') id: string,
+    @Body() updateCommentDto: UpdateCommentDto,
+  ) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Comment created!',
+      data: await this.commentService.update(user.id, +id, updateCommentDto),
+    };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commentService.remove(+id);
+  async remove(@ReqUser() user, @Param('id') id: string) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Comment created!',
+      data: await this.commentService.remove(user.id, +id),
+    };
   }
 }

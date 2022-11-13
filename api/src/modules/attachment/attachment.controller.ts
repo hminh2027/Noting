@@ -6,8 +6,11 @@ import {
   Patch,
   Param,
   Delete,
+  HttpStatus,
+  Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { ReqUser } from 'common/decorator/user.decorator';
 import { AttachmentService } from './attachment.service';
 import { CreateAttachmentDto } from './dto/create-attachment.dto';
 
@@ -17,12 +20,27 @@ export class AttachmentController {
   constructor(private readonly attachmentService: AttachmentService) {}
 
   @Post()
-  create(@Body() createAttachmentDto: CreateAttachmentDto) {
-    return this.attachmentService.create(createAttachmentDto);
+  async create(
+    @ReqUser() user,
+    @Body() createAttachmentDto: CreateAttachmentDto,
+  ) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Attachment created!',
+      data: await this.attachmentService.create(user.id, createAttachmentDto),
+    };
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.attachmentService.remove(id);
+  @Delete(':noteId')
+  async remove(
+    @ReqUser() user,
+    @Param('noteId') noteId: number,
+    @Query('fileName') fileName: string,
+  ) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Attachment deleted!',
+      data: await this.attachmentService.remove(user.id, noteId, fileName),
+    };
   }
 }

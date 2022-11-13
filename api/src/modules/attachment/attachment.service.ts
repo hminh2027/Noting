@@ -1,22 +1,37 @@
 import { Attachment } from './attachment.entity';
-import { Injectable, NotAcceptableException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotAcceptableException,
+} from '@nestjs/common';
 import { CreateAttachmentDto } from './dto/create-attachment.dto';
 import { UpdateAttachmentDto } from './dto/update-attachment.dto';
 import * as fs from 'fs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { SharedNoteService } from 'modules/shared-note/shared-note.service';
+import { Permission } from 'modules/shared-note/permission.enum';
 
 @Injectable()
 export class AttachmentService {
   constructor(
     @InjectRepository(Attachment)
     private readonly attachmentRepository: Repository<Attachment>,
+    private readonly sharedService: SharedNoteService,
   ) {}
 
-  async create(createAttachmentDto: CreateAttachmentDto) {
+  async create(userId: number, createAttachmentDto: CreateAttachmentDto) {
     const fileName = await this.saveBase64ToFile(createAttachmentDto.image);
     if (!fileName)
       throw new NotAcceptableException('Can not convert base64 to image');
+
+    const isShared = await this.sharedService.getOneByUserIdAndNoteId(
+      userId,
+      createAttachmentDto.noteId,
+    );
+
+    if (!isShared || isShared.permission < Permission.EDITABLE)
+      throw new ForbiddenException('You are not allowed to edit this note');
 
     const newAtt = await this.attachmentRepository.create({
       fileName,
@@ -26,8 +41,14 @@ export class AttachmentService {
     return this.attachmentRepository.save(newAtt);
   }
 
-  remove(fileName: string) {
-    return this.attachmentRepository.delete(fileName);
+  async remove(userId: number, noteId: number, fileName: string) {
+    await this.sharedService.checkPermission(
+      userId,
+      noteId,
+      Permission.EDITABLE,
+    );
+
+    return await this.attachmentRepository.delete(fileName);
   }
 
   async saveBase64ToFile(base64string: String) {
