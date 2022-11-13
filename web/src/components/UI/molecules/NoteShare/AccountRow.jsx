@@ -9,7 +9,6 @@ export const AccountRow = ({
     email: "email@example.com",
   },
   note,
-  mutate,
 }) => {
   const { firstName, lastName, email } = user.user;
   return (
@@ -26,7 +25,7 @@ export const AccountRow = ({
         </div>
       </div>
       <div>
-        <PermissionListPopover mutate={mutate} note={note} user={user} />
+        <PermissionListPopover note={note} user={user} />
       </div>
     </div>
   );

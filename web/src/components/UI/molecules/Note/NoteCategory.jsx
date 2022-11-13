@@ -45,8 +45,6 @@ export const NoteCategory = ({ category, className }) => {
           <div className="flex flex-col  ">
             {notes?.map((note) => (
               <div
-                variant="ghost"
-                colorScheme="teal"
                 key={note.id}
                 className="text-left py-2 px-1 cursor-pointer  hover:bg-gray-200"
                 onClick={() => NoteItemClickHandler(note.id)}

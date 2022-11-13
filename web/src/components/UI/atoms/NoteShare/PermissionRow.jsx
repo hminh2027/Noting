@@ -1,8 +1,7 @@
 import { Button, Text } from "@chakra-ui/react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { FaCheck } from "react-icons/fa";
-import { useSWRConfig } from "swr";
-import { useGetNoteById } from "../../../../hooks/swr";
 
 import { updatePermission } from "../../../../service/note-share";
 
@@ -11,16 +10,22 @@ export const PermissionRow = ({
   permission,
   isActive = true,
   user,
-  mutate,
 }) => {
+  const queryClient = useQueryClient();
   const { noteId, userId } = user;
   const { name, description, id } = permission;
   const onClickHandler = () => {
-    updatePermission({ noteId, userId, permission: id });
-    setTimeout(async () => {
-      await mutate();
-    }, 1000);
+    mutation.mutate();
   };
+  const mutation = useMutation({
+    mutationFn: () => updatePermission({ noteId, userId, permission: id }),
+    onSuccess: () => {
+      setTimeout(
+        () => queryClient.invalidateQueries({ queryKey: ["note-id"] }),
+        100
+      );
+    },
+  });
   return (
     <Button variant={"ghost"} className="text-left" onClick={onClickHandler}>
       <div className="flex w-full justify-between items-center">

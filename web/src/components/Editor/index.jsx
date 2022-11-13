@@ -1,17 +1,31 @@
 import EditorJs from "@natterstefan/react-editor-js";
+import { patchNote } from "../../service/note";
+import { noteAdapter } from "../../utils/Adapter";
 import { EditorTools } from "./EditorTools";
 
-const NoteEditor = ({ note, onChange, onReady }) => {
+const NoteEditor = ({ note, onReady }) => {
   const editor = null;
 
   // const onReady = () => {
   //   // https://editorjs.io/configuration#editor-modifications-callback
   //   console.log("Editor.js is ready to work!");
   // };
-
-  const onChangeHandler = (api, event) => {
+  let timer;
+  const onChangeHandler = async (api, event) => {
     // https://editorjs.io/configuration#editor-modifications-callback
-    // console.log("Now I know that Editor's content changed!");
+    // console.log("Now I know that Editor's content changed!", event);
+    clearTimeout(timer);
+
+    timer = setTimeout(async () => {
+      const outputData = await editor.save();
+
+      const newNote = noteAdapter
+        .setNote(note)
+        .setBlocks(outputData.blocks)
+        .getPatchacbleNote();
+      console.log(newNote);
+      patchNote(newNote);
+    }, 3000);
   };
 
   // const onSave = async () => {

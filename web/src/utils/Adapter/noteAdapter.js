@@ -13,7 +13,7 @@ class NoteAdapter {
     };
     return this;
   }
-  converBlockToContent() {
+  convertBlockToContent() {
     this.note = {
       ...this.note,
       content: JSON.stringify(this.note.blocks.blocks),
@@ -23,8 +23,24 @@ class NoteAdapter {
   getNote() {
     return this.note;
   }
-  exportContent() {
-    return { content: [] };
+  setBlocks(blocks) {
+    this.note.blocks = { blocks: blocks };
+    this.convertBlockToContent();
+    return this;
+  }
+  setContent(content) {
+    this.note.content = content;
+    this.convertContentToBlock();
+    return this;
+  }
+  getPatchacbleNote() {
+    return {
+      id: this.note.id,
+      content: this.note.content,
+      isTemplate: this.note.isTemplate,
+      isPublic: this.note.isPublic,
+      categoryId: this.note.categoryId,
+    };
   }
 }
 export const noteAdapter = new NoteAdapter();

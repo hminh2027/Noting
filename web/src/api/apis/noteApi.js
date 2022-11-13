@@ -26,6 +26,10 @@ export const noteApi = {
       .then(() => showToast("Note created successfully", "success"))
       .catch(() => showToast("Failed to create note", "error"));
   },
+  patch: async (note) => {
+    const url = `/note/${note.id}`;
+    return await axiosClient.patch(url, note);
+  },
   updatePermission: ({ userId, noteId, permission }) => {
     const url = `/note/permission/update`;
     return axiosClient
