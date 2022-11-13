@@ -9,16 +9,16 @@ import { NoteSharePopover } from "../../molecules/NoteShare/NoteSharePopover";
 import { NoteActivityDrawer } from "../NoteActivity";
 import { NoteCommentDrawer } from "../NoteComment";
 
-export const Header = ({ note, mutate }) => {
+export const Header = ({ note }) => {
   return (
     <div className="flex justify-between">
       <Text fontSize="lg" fontWeight={"medium"}>
         {note.title}
       </Text>
       <div className="flex gap-4">
-        <NoteCommentDrawer mutate={mutate} />
-        <NoteSharePopover mutate={mutate} note={note} />
-        <NoteActivityDrawer mutate={mutate} />
+        <NoteCommentDrawer />
+        <NoteSharePopover note={note} />
+        <NoteActivityDrawer />
       </div>
     </div>
   );

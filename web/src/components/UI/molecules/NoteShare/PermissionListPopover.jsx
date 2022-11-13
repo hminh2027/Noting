@@ -10,7 +10,7 @@ import { FaAngleDown } from "react-icons/fa";
 import { PermissionList } from ".";
 import { USER_PERMISSIONS } from "../../../../const";
 
-export const PermissionListPopover = ({ mutate, note, user }) => {
+export const PermissionListPopover = ({ note, user }) => {
   return (
     <Popover>
       <PopoverTrigger>
@@ -20,7 +20,7 @@ export const PermissionListPopover = ({ mutate, note, user }) => {
       </PopoverTrigger>
       <PopoverContent>
         <div className="p-1">
-          <PermissionList mutate={mutate} note={note} user={user} />
+          <PermissionList note={note} user={user} />
         </div>
       </PopoverContent>
     </Popover>

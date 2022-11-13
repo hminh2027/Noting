@@ -5,11 +5,11 @@ import { Header } from "../../organism/NoteDetail";
 const NoteEditor = dynamic(import("../../../Editor"), {
   ssr: false,
 });
-export const NoteDetailTemplate = ({ mutate, note }) => {
+export const NoteDetailTemplate = ({ note }) => {
   return (
     <div className="flex flex-col gap-4">
-      <Header mutate={mutate} note={note} />
-      <NoteEditor mutate={mutate} note={note} />
+      <Header note={note} />
+      <NoteEditor note={note} />
     </div>
   );
 };
