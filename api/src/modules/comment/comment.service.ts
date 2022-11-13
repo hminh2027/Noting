@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Permission } from './../shared-note/permission.enum';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { SharedNoteService } from 'modules/shared-note/shared-note.service';
 import { Repository } from 'typeorm';
 import { Comment } from './comment.entity';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -10,17 +12,36 @@ export class CommentService {
   constructor(
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
+    private readonly sharedService: SharedNoteService,
   ) {}
-  async create(createCommentDto: CreateCommentDto) {
-    const newComment = await this.commentRepository.create(createCommentDto);
+  async create(userId: number, createCommentDto: CreateCommentDto) {
+    await this.sharedService.checkPermission(
+      userId,
+      createCommentDto.noteId,
+      Permission.COMMENTABLE,
+    );
+
+    const newComment = await this.commentRepository.create({
+      ...createCommentDto,
+      userId,
+    });
+
     return await this.commentRepository.save(newComment);
   }
 
-  update(id: number, updateCommentDto: UpdateCommentDto) {
+  async update(userId: number, id: number, updateCommentDto: UpdateCommentDto) {
+    await this.sharedService.checkPermission(
+      userId,
+      updateCommentDto.noteId,
+      Permission.COMMENTABLE,
+    );
+
     return this.commentRepository.update(id, updateCommentDto);
   }
 
-  remove(id: number) {
+  remove(userId: number, id: number) {
+    const existed = this.commentRepository.findOne({ where: { id, userId } });
+    if (!existed) throw new NotFoundException('Comment not existed!');
     return this.commentRepository.delete(id);
   }
 }
