@@ -13,7 +13,6 @@ import { CommentList } from "./CommentList";
 import { BsChatLeftText } from "react-icons/bs";
 export const NoteCommentDrawer = ({ note }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
       <IconButton

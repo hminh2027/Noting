@@ -15,4 +15,9 @@ export const commentApi = {
     const url = `/comment`;
     return await axiosClient.post(url, comment);
   },
+  getAllByNoteId: async (id) => {
+    console.log(id);
+    const url = `/comment/${id}`;
+    return await axiosClient.get(url);
+  },
 };

@@ -1,11 +1,12 @@
 import React from "react";
-import { NoteActivityCard } from "./NoteActivityCard";
+import { NoteActivityRow } from "./NoteActivityRow";
 
-export function NoteActivityList({ snapshots = [1, 2, 3, 4] }) {
+export function NoteActivityList({ note }) {
+  const { snapshots } = note;
   return (
     <div className="flex flex-col divide-y">
       {snapshots?.map((snapshot) => (
-        <NoteActivityCard className="py-4" />
+        <NoteActivityRow className="py-4" />
       ))}
     </div>
   );

@@ -2,6 +2,7 @@ import { Button, Text } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { FaCheck } from "react-icons/fa";
+import { REACT_QUERY_KEYS } from "../../../../const/react-query-key";
 
 import { updatePermission } from "../../../../service/note-share";
 
@@ -21,7 +22,10 @@ export const PermissionRow = ({
     mutationFn: () => updatePermission({ noteId, userId, permission: id }),
     onSuccess: () => {
       setTimeout(
-        () => queryClient.invalidateQueries({ queryKey: ["note-id"] }),
+        () =>
+          queryClient.invalidateQueries({
+            queryKey: [REACT_QUERY_KEYS.NOTE_ID],
+          }),
         100
       );
     },
