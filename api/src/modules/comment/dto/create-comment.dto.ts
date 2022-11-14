@@ -14,13 +14,5 @@ export class CreateCommentDto {
   })
   @IsInt()
   @IsNotEmpty()
-  userId: number;
-
-  @ApiProperty({
-    required: true,
-    type: Number,
-  })
-  @IsInt()
-  @IsNotEmpty()
   noteId: number;
 }

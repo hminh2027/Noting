@@ -37,10 +37,7 @@ export class SharedNoteService {
       userId,
       updateSharedNoteDto.noteId,
     );
-    if (
-      isAuthor.note.userId != userId
-      // || isAuthor.permission != Permission.FULL_ACCESS
-    )
+    if (isAuthor.note.userId != userId)
       throw new ForbiddenException('You are not allow to update permission');
 
     const sharedNote = await this.getOneByUserIdAndNoteId(
@@ -52,10 +49,7 @@ export class SharedNoteService {
   }
 
   async remove(authorId: number, userId: number, noteId: number) {
-    const isShared = await this.getOneByUserIdAndNoteId(authorId, userId);
-
-    if (!isShared || isShared.permission != Permission.FULL_ACCESS)
-      throw new ForbiddenException('You are not allow to to modify!');
+    await this.checkPermission(authorId, userId, Permission.FULL_ACCESS);
 
     const sharedNote = await this.getOneByUserIdAndNoteId(userId, noteId);
 
@@ -81,5 +75,16 @@ export class SharedNoteService {
       .where('shared_note.userId = :userId', { userId })
       .andWhere('shared_note.noteId = :noteId', { noteId })
       .getOne();
+  }
+
+  async checkPermission(
+    userId: number,
+    noteId: number,
+    targetPermission: number,
+  ) {
+    const isShared = await this.getOneByUserIdAndNoteId(userId, noteId);
+
+    if (!isShared || isShared.permission < targetPermission)
+      throw new ForbiddenException();
   }
 }
