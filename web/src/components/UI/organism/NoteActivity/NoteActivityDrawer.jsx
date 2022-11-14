@@ -11,9 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { NoteActivityList } from "./NoteActivityList";
 import { AiOutlineClockCircle } from "react-icons/ai";
-export const NoteActivityDrawer = () => {
+export const NoteActivityDrawer = ({ note }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
       <IconButton
@@ -29,7 +28,7 @@ export const NoteActivityDrawer = () => {
           <DrawerHeader>Note's activities</DrawerHeader>
 
           <DrawerBody>
-            <NoteActivityList />
+            <NoteActivityList note={note} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

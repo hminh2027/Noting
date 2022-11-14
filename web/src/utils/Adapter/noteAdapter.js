@@ -35,7 +35,8 @@ class NoteAdapter {
     return this;
   }
   getPatchacbleNote() {
-    const { sharedNotes, blocks, ...noteToReturn } = this.note;
+    const { snapshots, comments, sharedNotes, blocks, ...noteToReturn } =
+      this.note;
     return noteToReturn;
   }
 }

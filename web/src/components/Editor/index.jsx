@@ -23,7 +23,6 @@ const NoteEditor = ({ note, onReady }) => {
         .setNote(note)
         .setBlocks(outputData.blocks)
         .getPatchacbleNote();
-      console.log(newNote);
       patchNote(newNote);
     }, 1000);
   };

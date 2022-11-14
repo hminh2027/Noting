@@ -1,3 +1,3 @@
-export { NoteActivityCard } from "./NoteActivityCard";
+export { NoteActivityRow } from "./NoteActivityRow";
 export { NoteActivityList } from "./NoteActivityList";
 export { NoteActivityDrawer } from "./NoteActivityDrawer";
