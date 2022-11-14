@@ -7,6 +7,7 @@ export class LoginPayload {
   })
   @IsEmail()
   email: string;
+
   @ApiProperty({
     required: true,
   })

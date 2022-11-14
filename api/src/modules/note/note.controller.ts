@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import { SharedNoteService } from './../shared-note/shared-note.service';
 import {
   Controller,
@@ -30,6 +31,7 @@ export class NoteController {
   constructor(
     private readonly noteService: NoteService,
     private readonly sharedNoteService: SharedNoteService,
+    private readonly userService: UserService,
   ) {}
 
   @Post()
@@ -43,10 +45,14 @@ export class NoteController {
 
   @Post('/permission/share')
   async share(@Body() createSharedNoteDto: CreateSharedNoteDto) {
+    const user = await this.userService.getByEmail(createSharedNoteDto.email);
     return {
       statusCode: HttpStatus.OK,
       message: 'Note shared!',
-      data: await this.sharedNoteService.create(createSharedNoteDto),
+      data: await this.sharedNoteService.create({
+        ...createSharedNoteDto,
+        userId: user.id,
+      }),
     };
   }
 

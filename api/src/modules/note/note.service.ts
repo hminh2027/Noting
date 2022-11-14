@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import { SnapshotService } from './../snapshot/snapshot.service';
 import { SharedNoteService } from './../shared-note/shared-note.service';
 import { TagService } from './../tag/tag.service';
@@ -82,6 +83,9 @@ export class NoteService {
       .leftJoinAndSelect('note.comments', 'comment')
       .leftJoinAndSelect('shared_note.user', 'user')
       .leftJoinAndSelect('note.snapshots', 'snapshot')
+      .leftJoinAndSelect('snapshot.user', 'user2')
+      .leftJoinAndSelect('comment.user', 'comment2')
+      .leftJoinAndSelect('note.category', 'category')
       .where('shared_note.userId = :userId', { userId })
       .andWhere('shared_note.noteId = :noteId', { noteId: id })
       .getOne();

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsEnum, IsInt, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsEmail, IsEnum, IsInt, IsNotEmpty } from 'class-validator';
 import { Permission } from '../permission.enum';
 
 export class CreateSharedNoteDto {
@@ -10,6 +10,14 @@ export class CreateSharedNoteDto {
   @IsInt()
   @IsNotEmpty()
   userId: number;
+
+  @ApiProperty({
+    // required: true,
+    nullable: true,
+  })
+  @IsEmail()
+  // @IsNotEmpty()
+  email?: string;
 
   @ApiProperty({
     required: true,
