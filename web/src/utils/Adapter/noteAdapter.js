@@ -11,6 +11,7 @@ class NoteAdapter {
       ...this.note,
       blocks: { blocks: JSON.parse(this.note.content) },
     };
+
     return this;
   }
   convertBlockToContent() {
@@ -34,13 +35,8 @@ class NoteAdapter {
     return this;
   }
   getPatchacbleNote() {
-    return {
-      id: this.note.id,
-      content: this.note.content,
-      isTemplate: this.note.isTemplate,
-      isPublic: this.note.isPublic,
-      categoryId: this.note.categoryId,
-    };
+    const { sharedNotes, blocks, ...noteToReturn } = this.note;
+    return noteToReturn;
   }
 }
 export const noteAdapter = new NoteAdapter();

@@ -25,7 +25,7 @@ const NoteEditor = ({ note, onReady }) => {
         .getPatchacbleNote();
       console.log(newNote);
       patchNote(newNote);
-    }, 3000);
+    }, 1000);
   };
 
   // const onSave = async () => {

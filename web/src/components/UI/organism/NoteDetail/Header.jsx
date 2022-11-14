@@ -16,9 +16,9 @@ export const Header = ({ note }) => {
         {note.title}
       </Text>
       <div className="flex gap-4">
-        <NoteCommentDrawer />
+        <NoteCommentDrawer note={note} />
         <NoteSharePopover note={note} />
-        <NoteActivityDrawer />
+        <NoteActivityDrawer note={note} />
       </div>
     </div>
   );

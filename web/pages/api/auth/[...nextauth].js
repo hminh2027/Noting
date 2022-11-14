@@ -1,6 +1,6 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-export default NextAuth({
+const authOption = {
   session: {
     strategy: "jwt",
   },
@@ -38,4 +38,6 @@ export default NextAuth({
       return token;
     },
   },
-});
+  secret: process.env.NEXTAUTH_SECRET,
+};
+export default NextAuth(authOption);
