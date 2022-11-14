@@ -79,8 +79,8 @@ export class NoteService {
     return await this.noteRepository
       .createQueryBuilder('note')
       .leftJoinAndSelect('note.sharedNotes', 'shared_note')
-      .leftJoinAndSelect('shared_note.user', 'user')
       .leftJoinAndSelect('note.comments', 'comment')
+      .leftJoinAndSelect('shared_note.user', 'user')
       .leftJoinAndSelect('note.snapshots', 'snapshot')
       .where('shared_note.userId = :userId', { userId })
       .andWhere('shared_note.noteId = :noteId', { noteId: id })

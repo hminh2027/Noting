@@ -40,6 +40,7 @@ export class Comment {
 
   /* N-1 */
   @ManyToOne(() => User, (user) => user.comments, {
+    eager: true,
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'userId' })
