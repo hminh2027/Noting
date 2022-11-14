@@ -39,6 +39,10 @@ export class CommentService {
     return this.commentRepository.update(id, updateCommentDto);
   }
 
+  async getManyByNoteId(noteId: number) {
+    return await this.commentRepository.find({ where: { noteId } });
+  }
+
   remove(userId: number, id: number) {
     const existed = this.commentRepository.findOne({ where: { id, userId } });
     if (!existed) throw new NotFoundException('Comment not existed!');

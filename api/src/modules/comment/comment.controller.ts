@@ -26,6 +26,11 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
+  @Get(':noteId')
+  async findOne(@Param('noteId') noteId: number) {
+    return await this.commentService.getManyByNoteId(+noteId);
+  }
+
   @Post()
   async create(@ReqUser() user, @Body() createCommentDto: CreateCommentDto) {
     return {
