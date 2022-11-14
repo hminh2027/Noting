@@ -11,7 +11,7 @@ import {
 import React from "react";
 import { CommentList } from "./CommentList";
 import { BsChatLeftText } from "react-icons/bs";
-export const NoteCommentDrawer = () => {
+export const NoteCommentDrawer = ({ note }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -28,7 +28,7 @@ export const NoteCommentDrawer = () => {
           <DrawerCloseButton />
           <DrawerHeader>Note's comments</DrawerHeader>
           <DrawerBody>
-            <CommentList />
+            <CommentList note={note} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

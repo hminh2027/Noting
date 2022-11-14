@@ -4,6 +4,8 @@ class NoteAdapter {
   }
   setNote(note) {
     this.note = note;
+    console.log(this.note);
+
     return this;
   }
   convertContentToBlock() {
@@ -11,6 +13,7 @@ class NoteAdapter {
       ...this.note,
       blocks: { blocks: JSON.parse(this.note.content) },
     };
+
     return this;
   }
   convertBlockToContent() {
@@ -34,13 +37,16 @@ class NoteAdapter {
     return this;
   }
   getPatchacbleNote() {
-    return {
-      id: this.note.id,
-      content: this.note.content,
-      isTemplate: this.note.isTemplate,
-      isPublic: this.note.isPublic,
-      categoryId: this.note.categoryId,
-    };
+    // return {
+    //   id: this.note.id,
+    //   content: this.note.content,
+    //   isTemplate: this.note.isTemplate,
+    //   isPublic: this.note.isPublic,
+    //   categoryId: this.note.categoryId,
+    //   title: this.note.title,
+    // };
+    const { sharedNotes, blocks, ...noteToReturn } = this.note;
+    return noteToReturn;
   }
 }
 export const noteAdapter = new NoteAdapter();

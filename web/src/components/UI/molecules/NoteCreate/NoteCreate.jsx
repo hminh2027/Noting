@@ -33,7 +33,7 @@ export const NoteCreate = ({ categoryId }) => {
       isPublic: false,
       tagsName: [],
       categoryId,
-      content: "",
+      content: null,
     },
   });
   const { tags } = useGetTag();
