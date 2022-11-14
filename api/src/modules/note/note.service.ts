@@ -79,11 +79,12 @@ export class NoteService {
     return await this.noteRepository
       .createQueryBuilder('note')
       .leftJoinAndSelect('note.sharedNotes', 'shared_note')
-      // .where('shared_note.userId = :userId', { userId })
       .leftJoinAndSelect('shared_note.user', 'user')
-      .where('shared_note.noteId = :noteId', { noteId: id })
+      .leftJoinAndSelect('note.comments', 'comment')
+      .leftJoinAndSelect('note.snapshots', 'snapshot')
+      .where('shared_note.userId = :userId', { userId })
+      .andWhere('shared_note.noteId = :noteId', { noteId: id })
       .getOne();
-    // return await this.sharedService.getOneByUserIdAndNoteId(userId, id);
   }
 
   async getOneById(id: number) {
