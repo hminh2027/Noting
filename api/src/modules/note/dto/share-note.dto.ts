@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsBoolean, IsNotEmpty } from 'class-validator';
 
-export class CreateNoteDto {
+export class ShareNoteDto {
   @ApiProperty({
     required: true,
   })
