@@ -4,8 +4,6 @@ class NoteAdapter {
   }
   setNote(note) {
     this.note = note;
-    console.log(this.note);
-
     return this;
   }
   convertContentToBlock() {
@@ -37,14 +35,6 @@ class NoteAdapter {
     return this;
   }
   getPatchacbleNote() {
-    // return {
-    //   id: this.note.id,
-    //   content: this.note.content,
-    //   isTemplate: this.note.isTemplate,
-    //   isPublic: this.note.isPublic,
-    //   categoryId: this.note.categoryId,
-    //   title: this.note.title,
-    // };
     const { sharedNotes, blocks, ...noteToReturn } = this.note;
     return noteToReturn;
   }
