@@ -6,7 +6,7 @@ export function NoteActivityList({ note }) {
   return (
     <div className="flex flex-col divide-y">
       {snapshots?.map((snapshot) => (
-        <NoteActivityRow className="py-4" />
+        <NoteActivityRow snapshot={snapshot} className="py-4" />
       ))}
     </div>
   );

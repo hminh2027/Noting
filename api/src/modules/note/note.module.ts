@@ -6,6 +6,7 @@ import { NoteController } from './note.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TagModule } from 'modules/tag/tag.module';
 import { SnapshotModule } from 'modules/snapshot/snapshot.module';
+import { UserModule, UserService } from 'modules/user';
 
 @Module({
   controllers: [NoteController],
@@ -14,6 +15,7 @@ import { SnapshotModule } from 'modules/snapshot/snapshot.module';
     TagModule,
     SnapshotModule,
     SharedNoteModule,
+    UserModule,
   ],
   exports: [NoteService],
   providers: [NoteService],

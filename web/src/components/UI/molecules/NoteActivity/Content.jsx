@@ -1,5 +1,6 @@
 import React from "react";
 
-export const Content = () => {
-  return <div>Content</div>;
+export const Content = ({ snapshot }) => {
+  const { description } = snapshot;
+  return <div>{description}</div>;
 };
