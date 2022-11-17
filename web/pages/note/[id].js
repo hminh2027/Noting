@@ -12,6 +12,7 @@ const NoteDetail = () => {
   } = useQuery({
     queryKey: ["note-id", id],
     queryFn: () => noteApi.get(id),
+    cacheTime: 0,
   });
 
   if (isLoading || isError) return <div></div>;
