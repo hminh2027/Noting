@@ -7,8 +7,8 @@ export const snapshotApi = {
     const url = "/snapshot";
     return await axiosClient.get(url, { params });
   },
-  get: async (id) => {
-    const url = `/snapshot/${id}`;
+  get: async (timestamp) => {
+    const url = `/snapshot/${timestamp}`;
     return await axiosClient.get(url);
   },
   post: async (snapshot) => {

@@ -6,7 +6,7 @@ import SessionLoader from "../src/api/SessionLoader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }) {
   const Layout = Component.layout || DefaultLayout;
@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps }) {
               <ToastContainer />
             </Layout>
           </ChakraProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </SessionLoader>
     </SessionProvider>

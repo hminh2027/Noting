@@ -29,10 +29,17 @@ export const noteApi = {
     const url = `/note/${note.id}`;
     return axiosClient
       .patch(url, note)
-      .then(() => console.log("Note updated"))
+      .then(() => showToast("Note updated", "success"))
       .catch(() => showToast("Can't update note", "error"));
   },
-  updatePermission: ({ userId, noteId, permission }) => {
+  createShare: ({ email, noteId }) => {
+    const url = `/note/permission/share`;
+    return axiosClient
+      .post(url, { email, noteId })
+      .then(() => showToast("User added", "success"))
+      .catch(() => showToast("Failed to add user", "error"));
+  },
+  updateSharePermission: ({ userId, noteId, permission }) => {
     const url = `/note/permission/update`;
     return axiosClient
       .patch(url, { userId, noteId, permission })

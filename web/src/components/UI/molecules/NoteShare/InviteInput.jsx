@@ -1,15 +1,17 @@
 import { Button, Input } from "@chakra-ui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { createShare } from "../../../../service/note-share";
 
-export const InviteInput = ({}) => {
+export const InviteInput = ({ note }) => {
   const { register, handleSubmit } = useForm({
     defaultValues: {
       email: "",
+      note,
     },
   });
   const onSubmit = (value) => {
-    console.log(value);
+    createShare(value);
   };
   return (
     <div>

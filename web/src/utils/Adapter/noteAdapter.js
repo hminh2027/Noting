@@ -6,6 +6,10 @@ class NoteAdapter {
     this.note = note;
     return this;
   }
+  setTitle(title) {
+    this.note.title = title;
+    return this;
+  }
   convertContentToBlock() {
     this.note = {
       ...this.note,

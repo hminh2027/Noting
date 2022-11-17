@@ -14,7 +14,6 @@ const NoteDetail = () => {
     queryFn: () => noteApi.get(id),
     cacheTime: 0,
   });
-
   if (isLoading || isError) return <div></div>;
   return <NoteDetailTemplate note={note} />;
 };

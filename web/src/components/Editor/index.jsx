@@ -1,4 +1,5 @@
 import EditorJs from "@natterstefan/react-editor-js";
+import { useEffect, useState } from "react";
 import { patchNote } from "../../service/note";
 import { noteAdapter } from "../../utils/Adapter";
 import { EditorTools } from "./EditorTools";

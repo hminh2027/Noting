@@ -17,7 +17,7 @@ export const NoteSharePopover = ({ note }) => {
       <PopoverContent width={"350px"}>
         {/* <PopoverBody> */}
         <div className="flex flex-col gap-2 p-2 divide-y">
-          <InviteInput />
+          <InviteInput note={note} />
           <div className="flex flex-col">
             <AccountList note={note} />
           </div>

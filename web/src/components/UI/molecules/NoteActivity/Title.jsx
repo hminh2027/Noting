@@ -1,7 +1,7 @@
 import { Avatar, Button, IconButton, Text } from "@chakra-ui/react";
 import React from "react";
 import { HiOutlineClock } from "react-icons/hi";
-import { getTimeDiff } from "../../../../utils/get-time-diff";
+import { getTimeDiff } from "../../../../utils/time";
 export const Title = ({ snapshot, className }) => {
   const { user, title, description } = snapshot;
   const timeDiff = getTimeDiff(snapshot.createdAt);
