@@ -10,7 +10,7 @@ export class CreateSnapshotDto {
 
   @ApiProperty({
     required: true,
-    nullable: true,
+    default: '[]',
   })
   content: string;
 

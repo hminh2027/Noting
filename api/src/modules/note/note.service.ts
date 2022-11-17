@@ -86,7 +86,7 @@ export class NoteService {
       .leftJoinAndSelect('snapshot.user', 'user2')
       .leftJoinAndSelect('comment.user', 'comment2')
       .leftJoinAndSelect('note.category', 'category')
-      .where('shared_note.userId = :userId', { userId })
+      // .where('shared_note.userId = :userId', { userId })
       .andWhere('shared_note.noteId = :noteId', { noteId: id })
       .getOne();
   }

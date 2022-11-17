@@ -10,7 +10,7 @@ export class CreateNoteDto {
 
   @ApiProperty({
     required: true,
-    nullable: true,
+    default: '[]',
   })
   content: string;
 
