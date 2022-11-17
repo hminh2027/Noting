@@ -1,4 +1,5 @@
 import React from "react";
+import { NoteActivityModal } from "./NoteActivityModal";
 import { NoteActivityRow } from "./NoteActivityRow";
 
 export function NoteActivityList({ note }) {
@@ -8,6 +9,9 @@ export function NoteActivityList({ note }) {
       {snapshots?.map((snapshot) => (
         <NoteActivityRow snapshot={snapshot} className="py-4" />
       ))}
+      <NoteActivityModal
+      // snapshots={snapshots}
+      />
     </div>
   );
 }

@@ -24,8 +24,6 @@ export const CreateNoteModal = ({ isOpen, onSubmit, onClose, categoryId }) => {
           <ModalBody>
             <NoteCreate categoryId={categoryId} />
           </ModalBody>
-
-          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>
