@@ -23,4 +23,9 @@ export class SnapshotController {
   create(@Body() createSnapshotDto: CreateSnapshotDto) {
     return this.snapshotService.create(createSnapshotDto);
   }
+
+  @Get(':timestamp')
+  findOne(@Param('timestamp') timestamp: string) {
+    return this.snapshotService.getOneByTimestamp(timestamp);
+  }
 }
