@@ -11,9 +11,13 @@ export class SnapshotService {
     private readonly snapShotRepository: Repository<SnapShot>,
   ) {}
   async create(createSnapshotDto: CreateSnapshotDto) {
-    console.log(createSnapshotDto);
-
     const newSnap = await this.snapShotRepository.create(createSnapshotDto);
     return await this.snapShotRepository.save(newSnap);
+  }
+
+  async getOneByTimestamp(timestamp: string) {
+    return await this.snapShotRepository.findOne({
+      where: { createdAt: timestamp },
+    });
   }
 }
