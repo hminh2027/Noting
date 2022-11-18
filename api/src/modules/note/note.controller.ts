@@ -56,12 +56,14 @@ export class NoteController {
     };
   }
 
-  @Get()
-  async findAll(@ReqUser() user) {
-    return {
-      private: await this.noteService.getManyByUserId(user.id),
-      shared: await this.sharedNoteService.getManyByUserId(user.id),
-    };
+  @Get('/private')
+  async findAllPrivate(@ReqUser() user) {
+    return await this.noteService.getManyByUserId(user.id);
+  }
+
+  @Get('/shared')
+  async findAllShared(@ReqUser() user) {
+    return await this.sharedNoteService.getManyByUserId(user.id);
   }
 
   @Get(':id')
