@@ -63,6 +63,8 @@ export class SharedNoteService {
       .createQueryBuilder('shared_note')
       .leftJoinAndSelect('shared_note.note', 'note')
       .leftJoinAndSelect('shared_note.user', 'user')
+      .leftJoinAndSelect('note.category', 'category')
+      .leftJoinAndSelect('note.user', 'user2')
       .where('shared_note.userId = :userId', { userId })
       .getMany();
   }
