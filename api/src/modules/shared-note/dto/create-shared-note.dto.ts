@@ -25,6 +25,6 @@ export class CreateSharedNoteDto {
     enum: Permission,
     default: Permission.VIEWABLE,
   })
-  @IsEnum(Permission)
+  // @IsEnum(Permission)
   permission: Permission;
 }
