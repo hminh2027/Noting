@@ -22,7 +22,7 @@ export const NoteActivityModal = ({ snapshots }) => {
   const mutation = useMutation({
     mutationFn: () => restoreSnapshot(curSnapshot),
     onSuccess: () => {
-      setTimeout(() => router.reload(), 100);
+      setTimeout(() => router.reload(), 2000);
     },
   });
   const handleRestoreSnapshot = () => {

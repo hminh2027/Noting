@@ -8,6 +8,7 @@ import { NoteActivityDrawer } from "../NoteActivity";
 import { NoteCommentDrawer } from "../NoteComment";
 
 export const Header = ({ note }) => {
+  console.log(note);
   return (
     <div className="flex justify-between">
       <Text fontSize="lg" fontWeight={"medium"}>

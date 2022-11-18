@@ -6,7 +6,6 @@ export const categoryApi = {
   getAll: async () => {
     const url = "/category";
     return await axiosClient.get(url);
-    // return categoryAdapter.setCategory(res).convert().getCategory();
   },
 
   post: async (name) => {

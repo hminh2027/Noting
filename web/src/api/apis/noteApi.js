@@ -18,6 +18,13 @@ export const noteApi = {
     const note = await axiosClient.get(url);
     return noteAdapter.setNote(note).convertContentToBlock().getNote();
   },
+  getShared: async () => {
+    const url = "/note/shared";
+    const res = await axiosClient.get(url);
+    return res.map((note) =>
+      noteAdapter.setNote(note.note).convertContentToBlock().getNote()
+    );
+  },
   create: (note) => {
     const url = `/note`;
     return axiosClient
