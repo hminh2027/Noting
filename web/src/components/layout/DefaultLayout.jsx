@@ -9,7 +9,7 @@ import Sidebar from "./Sidebar";
 export const DefaultLayout = ({ children }) => {
   const { user, loading } = useSession();
   const { categories, isError, isLoading } = useGetCategory();
-  const [sharedNote, setSharedNote] = useState([]);
+  const [sharedNote, setSharedNote] = useState();
   useEffect(() => {
     const fetch = async () => {
       const sharedNote = await getSharedNote();
@@ -24,15 +24,14 @@ export const DefaultLayout = ({ children }) => {
       <div className="flex flex-col flex-1">
         <Header />
         <div className="flex flex-1">
-          <div>
-            {categories && (
-              <NoteSidebar
-                privateCategories={categories}
-                sharedNotes={sharedNote}
-                className=""
-              />
-            )}
-          </div>
+          {categories && (
+            <NoteSidebar
+              privateCategories={categories}
+              sharedNotes={sharedNote}
+              className=""
+            />
+          )}
+
           <div className="p-4 flex-1">{children}</div>
         </div>
       </div>

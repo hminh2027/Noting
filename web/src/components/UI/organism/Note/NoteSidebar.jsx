@@ -8,8 +8,8 @@ export const NoteSidebar = ({ privateCategories, sharedNotes, className }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <div className={`flex flex-col justify-between ${className}`}>
-      <div className="flex flex-col  max-h-[800px] max-w-[250px] overflow-auto">
-        <Text fontSize={"md"} fontWeight="bold">
+      <div className="flex flex-col max-h-[800px] max-w-[250px] overflow-auto">
+        <Text fontSize={"md"} fontWeight="bold" className="p-2">
           Private
         </Text>
         {privateCategories?.map((category, index) => (
@@ -17,6 +17,7 @@ export const NoteSidebar = ({ privateCategories, sharedNotes, className }) => {
         ))}
         <SharedNote notes={sharedNotes} title="Shared" />
       </div>
+
       <Button className="py-4" colorScheme={"blue"} onClick={onOpen}>
         Add Category
       </Button>
